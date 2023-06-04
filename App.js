@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { useFonts } from "expo-font";
+import PhotoBG from "./src/images/PhotoBG.png";
 import RegistrationScreen from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen/LoginScreen";
 
@@ -15,22 +23,32 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <RegistrationScreen />
-      {/* <LoginScreen /> */}
-      {/* <Text>Illia Datsenko ReactNative blank project with Expo</Text> */}
-      <StatusBar style="auto" />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={PhotoBG}
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <RegistrationScreen />
+          {/* <LoginScrn /> */}
+        
+          {/* <Text>Illia Datsenko ReactNative blank project with Expo</Text> */}
+          <StatusBar style="auto" />
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // width: 375,
-    // backgroundColor: "#fff",
-    // alignItems: "flex-end",
-    // justifyContent: "center",
-    // flexDirection: "column-reverse",
+    // backgroundColor: "#ffffff",
+  },
+  image: {
+    flex: 1,
+    // justifyContent: "flex-end",
+    // height: "100%",
   },
 });
