@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Text,
   View,
   ImageBackground,
   TouchableWithoutFeedback,
@@ -31,8 +30,8 @@ export default function App() {
           style={styles.image}
         >
           <RegistrationScreen />
-          {/* <LoginScrn /> */}
-        
+          {/* <LoginScreen /> */}
+
           {/* <Text>Illia Datsenko ReactNative blank project with Expo</Text> */}
           <StatusBar style="auto" />
         </ImageBackground>
@@ -44,11 +43,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#ffffff",
   },
   image: {
     flex: 1,
-    // justifyContent: "flex-end",
-    // height: "100%",
   },
 });
