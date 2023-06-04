@@ -80,30 +80,6 @@ export const defaultStyles = StyleSheet.create({
     color: "#1B4371",
   },
 
-  addphotoWrapper: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    backgroundColor: "#F6F6F6",
-    top: -60,
-    left: 141,
-    borderRadius: 16,
-  },
-
-  addPhotoButton: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    // transform: [{ rotate: "-45deg" }],
-  },
-
-  userPhoto: {
-    // flex: 1,
-    width: 120,
-    height: 120,
-    borderRadius: 16,
-  },
-
   showPassButton: {
     position: "absolute",
     right: 16,
