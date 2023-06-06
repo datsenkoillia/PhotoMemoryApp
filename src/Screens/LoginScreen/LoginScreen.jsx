@@ -17,12 +17,17 @@ import {
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isShowPassword, setIsShowPassword] = useState(false);
 
   const [inputEmailDynamicStyles, setInputEmailDynamicStyles] =
     useState(bluredInputStyles);
 
   const [inputPasswordDynamicStyles, setInputPasswordDynamicStyles] =
     useState(bluredInputStyles);
+
+  const toggleShowPassword = () => {
+    setIsShowPassword(!isShowPassword);
+  };
 
   return (
     <View style={defaultStyles.container}>
@@ -46,7 +51,7 @@ const LoginScreen = () => {
           <View>
             <TextInput
               placeholder="Пароль"
-              secureTextEntry
+              secureTextEntry={!isShowPassword}
               value={password}
               onChangeText={setPassword}
               style={[defaultStyles.input, ...inputPasswordDynamicStyles]}
@@ -56,20 +61,26 @@ const LoginScreen = () => {
             <TouchableOpacity
               style={defaultStyles.showPassButton}
               onPress={() => {
-                console.log("You tapped the Показати button!");
+                console.log(`You tapped the ${!isShowPassword ? "Показати" : "Cховати"} button!`);
+                toggleShowPassword();
               }}
             >
-              <Text style={defaultStyles.showPassAreaText}>Показати</Text>
+              <Text style={defaultStyles.showPassAreaText}>
+                {!isShowPassword ? "Показати" : "Cховати"}
+              </Text>
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity
             style={defaultStyles.button}
             onPress={() => {
-              console.log("You tapped the Зареєстуватися button!");
+              // console.log("You tapped the Увійти button!");
+              console.log(
+                `Login user: {login: email: ${email}; password: ${password}}`
+              );
             }}
           >
-            <Text style={defaultStyles.buttonText}> Зареєстуватися </Text>
+            <Text style={defaultStyles.buttonText}> Увійти </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={defaultStyles.isExistAccount}

@@ -10,6 +10,14 @@ export const focusedInputStyles = [
   { borderColor: "#FF6C00" },
 ];
 
+export const noPhotoButtonStyles = [
+  [{ color: "#FF6C00" }],
+];
+
+export const yesPhotoButtonStyles = [
+  [{ color: "#E8E8E8" }, { transform: [{ rotate: "-45deg" }] }],
+];
+
 export const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
