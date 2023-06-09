@@ -1,15 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useFonts } from "expo-font";
 import PhotoBG from "./src/images/PhotoBG.png";
 import RegistrationScreen from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen/LoginScreen";
+import Home from "./src/Screens/Home/Home";
+
+import { NavigationContainer } from "@react-navigation/native";
+import "react-native-gesture-handler";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import { headerScreensStyles } from "./src/defaultStyles/headerScreensStyles";
+import CreatePostsScreen from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
+
+const MainStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,28 +26,47 @@ export default function App() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={PhotoBG}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <RegistrationScreen />
-          {/* <LoginScreen /> */}
-
-          {/* <Text>Illia Datsenko ReactNative blank project with Expo</Text> */}
-          <StatusBar style="auto" />
-        </ImageBackground>
-      </View>
-    </TouchableWithoutFeedback>
+    <NavigationContainer>
+      <MainStack.Navigator initialRouteName="LoginScreen">
+        <MainStack.Screen
+          name="RegistrationScreen"
+          component={RegistrationScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="CreatePostsScreen"
+          component={CreatePostsScreen}
+          options={{
+            title: "Створити публікацію",
+            ...headerScreensStyles,
+          }}
+        />
+      </MainStack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  // container: {
+  //   flex: 1,
+  // },
   image: {
     flex: 1,
   },

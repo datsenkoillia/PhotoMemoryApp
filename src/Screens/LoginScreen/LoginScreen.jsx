@@ -7,12 +7,18 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ImageBackground,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import {
   bluredInputStyles,
   focusedInputStyles,
   defaultStyles,
 } from "../../defaultStyles/defaultStyles";
+import { useNavigation } from "@react-navigation/native";
+
+import PhotoBG from "../../images/PhotoBG.png";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -29,79 +35,112 @@ const LoginScreen = () => {
     setIsShowPassword(!isShowPassword);
   };
 
+  const navigation = useNavigation();
+
   return (
-    <View style={defaultStyles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "android" ? "padding" : "height"}
-        keyboardVerticalOffset={-230}
-        // style={{ flex: 1 }}
-      >
-        <View style={[defaultStyles.formwrap, styles.formwrap]}>
-          <Text style={defaultStyles.header}>Увійти</Text>
-
-          <TextInput
-            placeholder="Адреса електронної пошти"
-            value={email}
-            onChangeText={setEmail}
-            style={[defaultStyles.input, ...inputEmailDynamicStyles]}
-            onFocus={() => setInputEmailDynamicStyles(focusedInputStyles)}
-            onBlur={() => setInputEmailDynamicStyles(bluredInputStyles)}
-          />
-
-          <View>
-            <TextInput
-              placeholder="Пароль"
-              secureTextEntry={!isShowPassword}
-              value={password}
-              onChangeText={setPassword}
-              style={[defaultStyles.input, ...inputPasswordDynamicStyles]}
-              onFocus={() => setInputPasswordDynamicStyles(focusedInputStyles)}
-              onBlur={() => setInputPasswordDynamicStyles(bluredInputStyles)}
-            />
-            <TouchableOpacity
-              style={defaultStyles.showPassButton}
-              onPress={() => {
-                console.log(`You tapped the ${!isShowPassword ? "Показати" : "Cховати"} button!`);
-                toggleShowPassword();
-              }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={PhotoBG}
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <View style={defaultStyles.container}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "android" ? "padding" : "height"}
+              keyboardVerticalOffset={-230}
+              // style={{ flex: 1 }}
             >
-              <Text style={defaultStyles.showPassAreaText}>
-                {!isShowPassword ? "Показати" : "Cховати"}
-              </Text>
-            </TouchableOpacity>
-          </View>
+              <View style={[defaultStyles.formwrap, styles.formwrap]}>
+                <Text style={defaultStyles.header}>Увійти</Text>
 
-          <TouchableOpacity
-            style={defaultStyles.button}
-            onPress={() => {
-              // console.log("You tapped the Увійти button!");
-              console.log(
-                `Login user: {login: email: ${email}; password: ${password}}`
-              );
-            }}
-          >
-            <Text style={defaultStyles.buttonText}> Увійти </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={defaultStyles.isExistAccount}
-            onPress={() => {
-              console.log(
-                "You tapped the Немає акаунту? Зареєструватися button!"
-              );
-            }}
-          >
-            <Text style={defaultStyles.isExistAccountText}>
-              Немає акаунту?
-              <Text style={defaultStyles.underlineText}> Зареєструватися</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </View>
+                <TextInput
+                  placeholder="Адреса електронної пошти"
+                  value={email}
+                  onChangeText={setEmail}
+                  style={[defaultStyles.input, ...inputEmailDynamicStyles]}
+                  onFocus={() => setInputEmailDynamicStyles(focusedInputStyles)}
+                  onBlur={() => setInputEmailDynamicStyles(bluredInputStyles)}
+                />
+
+                <View>
+                  <TextInput
+                    placeholder="Пароль"
+                    secureTextEntry={!isShowPassword}
+                    value={password}
+                    onChangeText={setPassword}
+                    style={[defaultStyles.input, ...inputPasswordDynamicStyles]}
+                    onFocus={() =>
+                      setInputPasswordDynamicStyles(focusedInputStyles)
+                    }
+                    onBlur={() =>
+                      setInputPasswordDynamicStyles(bluredInputStyles)
+                    }
+                  />
+                  <TouchableOpacity
+                    style={defaultStyles.showPassButton}
+                    onPress={() => {
+                      console.log(
+                        `You tapped the ${
+                          !isShowPassword ? "Показати" : "Cховати"
+                        } button!`
+                      );
+                      toggleShowPassword();
+                    }}
+                  >
+                    <Text style={defaultStyles.showPassAreaText}>
+                      {!isShowPassword ? "Показати" : "Cховати"}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  style={defaultStyles.button}
+                  onPress={() => {
+                    // console.log("You tapped the Увійти button!");
+                    console.log(
+                      `Login user: {login: email: ${email}; password: ${password}}`
+                    );
+                    navigation.navigate("Home", {
+                      screen: "PostsScreen",
+                      // params: { email: email },
+                    });
+                  }}
+                >
+                  <Text style={defaultStyles.buttonText}> Увійти </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={defaultStyles.isExistAccount}
+                  onPress={() => {
+                    console.log(
+                      "You tapped the Немає акаунту? Зареєструватися button!"
+                    );
+                    navigation.navigate("RegistrationScreen");
+                  }}
+                >
+                  <Text style={defaultStyles.isExistAccountText}>
+                    Немає акаунту?
+                    <Text style={defaultStyles.underlineText}>
+                      Зареєструватися
+                    </Text>
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
+          </View>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+  },
   formwrap: {
     paddingTop: 32,
     paddingBottom: 132,

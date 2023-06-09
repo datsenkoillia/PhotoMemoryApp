@@ -10,9 +10,7 @@ export const focusedInputStyles = [
   { borderColor: "#FF6C00" },
 ];
 
-export const noPhotoButtonStyles = [
-  [{ color: "#FF6C00" }],
-];
+export const noPhotoButtonStyles = [[{ color: "#FF6C00" }]];
 
 export const yesPhotoButtonStyles = [
   [{ color: "#E8E8E8" }, { transform: [{ rotate: "-45deg" }] }],
@@ -55,10 +53,10 @@ export const defaultStyles = StyleSheet.create({
     lineHeight: 19,
   },
 
-  image: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
+  // image: {
+  //   flex: 1,
+  //   justifyContent: "flex-end",
+  // },
 
   button: {
     alignItems: "center",

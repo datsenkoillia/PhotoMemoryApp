@@ -1,9 +1,19 @@
-import React from 'react'
+import { useRoute } from "@react-navigation/native";
+import React from "react";
+import { Text, View } from "react-native";
 
 const PostsScreen = () => {
-  return (
-    <div>PostsScreen</div>
-  )
-}
+  // const {
+  //   params: { login, email },
+  // } = useRoute();
 
-export default PostsScreen
+  return (
+    <View>
+      <Text>PostsScreen</Text>
+      {/* {login && <Text>{login}</Text>}
+      {email && <Text>{email}</Text>} */}
+    </View>
+  );
+};
+
+export default PostsScreen;
