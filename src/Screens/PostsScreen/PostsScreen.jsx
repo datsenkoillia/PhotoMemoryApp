@@ -7,74 +7,77 @@ import UserData from "../../Components/UserData/UserData";
 
 const PostsScreen = () => {
   const { params: newPost } = useRoute();
-  const posts = [
-    {
-      id: "541",
-      location: { latitude: 37.4220936, longitude: -122.083922 },
-      name: "Home",
-      photoUri:
-        "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/543acb10-f92f-401f-a4ac-57f45fb46da9.jpg",
-      place: "Here",
-    },
-    {
-      id: "543",
-      location: { latitude: 37.4220936, longitude: -122.083922 },
-      name: "ewPost",
-      photoUri:
-        "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/7d00a39d-7a3f-4af0-9ec7-97c27cc6cba7.jpg",
-      place: "Rrrr",
-    },
-    {
-      id: "558",
-      location: { latitude: 37.4220936, longitude: -122.083922 },
-      name: "Yyyyyy",
-      photoUri:
-        "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/291c801a-bf41-44d3-a776-4629beaa050c.jpg",
-      place: "Eeeeee",
-    },
-  ];
-  // const posts = [newPost];
+  // const posts = [
+  //   {
+  //     comments: [],
+  //     id: "664",
+  //     location: { latitude: 37.4220936, longitude: -122.083922 },
+  //     name: "Rrrr",
+  //     photoUri:
+  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/a948d8e7-efea-47c1-86ce-7592486e0e7a.jpg",
+  //     place: "Yyyy",
+  //   },
+  //   {
+  //     comments: [],
+  //     id: "665",
+  //     location: { latitude: 37.4220936, longitude: -122.083922 },
+  //     name: "Guudd",
+  //     photoUri:
+  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/83ec3c0a-6d00-4df2-8d95-5011857ffd08.jpg",
+  //     place: "Oooll",
+  //   },
+  //   {
+  //     comments: [],
+  //     id: "666",
+  //     location: { latitude: 37.4220936, longitude: -122.083922 },
+  //     name: "Treeee",
+  //     photoUri:
+  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/8be88b38-de7f-490c-871e-0140b527d45b.jpg",
+  //     place: "Uuioo",
+  //   },
+  // ];
+  const posts = [newPost];
 
   return (
-    // <ScrollView style={styles.container}>
-    //   <UserData />
-    //   {newPost && (
-    //     <View style={styles.postsContainer}>
-    //       {posts.map((post) => (
-    //         <View key={post.id}>
-    //           <PostElement
-    //             name={post.name}
-    //             place={post.place}
-    //             location={post.location}
-    //             photoUri={post.photoUri}
-    //             comments={post.comments}
-    //           />
-    //         </View>
-    //       ))}
-    //     </View>
-    //   )}
-    // </ScrollView>
-
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <UserData />
       {newPost && (
         <View style={styles.postsContainer}>
-          <FlatList
-            data={posts}
-            renderItem={({ item }) => (
+          {posts.map((post) => (
+            <View key={post.id}>
               <PostElement
-                name={item.name}
-                place={item.place}
-                location={item.location}
-                photoUri={item.photoUri}
-                comments={item.comments}
+                name={post.name}
+                place={post.place}
+                location={post.location}
+                photoUri={post.photoUri}
+                comments={post.comments}
               />
-            )}
-            keyExtractor={(item) => item.id.toString()}
-          />
+            </View>
+          ))}
         </View>
       )}
-    </View>
+    </ScrollView>
+
+    // <View style={styles.container}>
+    //   <UserData />
+    //   {newPost && (
+    //     <View style={styles.postsContainer}>
+    //       <FlatList
+    //         data={posts}
+    //         renderItem={({ item }) => (
+    //           <PostElement
+    //             name={item.name}
+    //             place={item.place}
+    //             location={item.location}
+    //             photoUri={item.photoUri}
+    //             comments={item.comments}
+    //           />
+    //         )}
+    //         keyExtractor={(item) => item.id.toString()}
+    //       />
+    //     </View>
+    //   )}
+    // </View>
   );
 };
 

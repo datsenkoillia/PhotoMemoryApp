@@ -204,6 +204,7 @@ export default function CreatePost() {
                     place,
                     photoUri,
                     location: coords,
+                    comments: [],
                   };
 
                   navigation.navigate("PostsScreen", newPost);
