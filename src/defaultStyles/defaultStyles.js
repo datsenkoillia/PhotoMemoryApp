@@ -16,6 +16,30 @@ export const yesPhotoButtonStyles = [
   [{ color: "#E8E8E8" }, { transform: [{ rotate: "-45deg" }] }],
 ];
 
+export const buttonTextDisabledStyles = [
+  {
+    color: "#BDBDBD",
+  },
+];
+
+export const buttonTextEnabledStyles = [
+  {
+    color: "#ffffff",
+  },
+];
+
+export const buttonDisabledStyles = [
+  {
+    backgroundColor: "#F6F6F6",
+  },
+];
+
+export const buttonEnabledStyles = [
+  {
+    backgroundColor: "#FF6C00",
+  },
+];
+
 export const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,6 +75,27 @@ export const defaultStyles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
+  },
+
+  createPublicationInput: {
+    height: 50,
+    // paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderColor: "#E8E8E8",
+    marginBottom: 16,
+    // borderRadius: 8,
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+  },
+
+  greyText: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#BDBDBD",
+    paddingTop: 8,
+    paddingBottom: 33,
   },
 
   // image: {

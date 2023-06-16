@@ -59,6 +59,7 @@ const LoginScreen = () => {
                   value={email}
                   onChangeText={setEmail}
                   style={[defaultStyles.input, ...inputEmailDynamicStyles]}
+                  placeholderTextColor={"#BDBDBD"}
                   onFocus={() => setInputEmailDynamicStyles(focusedInputStyles)}
                   onBlur={() => setInputEmailDynamicStyles(bluredInputStyles)}
                 />
@@ -70,6 +71,7 @@ const LoginScreen = () => {
                     value={password}
                     onChangeText={setPassword}
                     style={[defaultStyles.input, ...inputPasswordDynamicStyles]}
+                    placeholderTextColor={"#BDBDBD"}
                     onFocus={() =>
                       setInputPasswordDynamicStyles(focusedInputStyles)
                     }

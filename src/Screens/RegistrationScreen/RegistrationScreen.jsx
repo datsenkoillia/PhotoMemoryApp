@@ -21,6 +21,8 @@ import {
   bluredInputStyles,
   focusedInputStyles,
   defaultStyles,
+  buttonTextDisabledStyles,
+  buttonTextEnabledStyles,
 } from "../../defaultStyles/defaultStyles";
 
 
@@ -40,6 +42,7 @@ const RegistrationScreen = () => {
 
   const [inputPasswordDynamicStyles, setInputPasswordDynamicStyles] =
     useState(bluredInputStyles);
+
 
   
   const toggleShowPassword = () => {
@@ -71,6 +74,7 @@ const RegistrationScreen = () => {
                   value={login}
                   onChangeText={setLogin}
                   style={[defaultStyles.input, ...inputLoginDynamicStyles]}
+                  placeholderTextColor={"#BDBDBD"}
                   onFocus={() => setInputLoginDynamicStyles(focusedInputStyles)}
                   onBlur={() => setInputLoginDynamicStyles(bluredInputStyles)}
                 />
@@ -80,6 +84,7 @@ const RegistrationScreen = () => {
                   value={email}
                   onChangeText={setEmail}
                   style={[defaultStyles.input, ...inputEmailDynamicStyles]}
+                  placeholderTextColor={"#BDBDBD"}
                   onFocus={() => setInputEmailDynamicStyles(focusedInputStyles)}
                   onBlur={() => setInputEmailDynamicStyles(bluredInputStyles)}
                 />
@@ -91,6 +96,7 @@ const RegistrationScreen = () => {
                     value={password}
                     onChangeText={setPassword}
                     style={[defaultStyles.input, ...inputPasswordDynamicStyles]}
+                    placeholderTextColor={"#BDBDBD"}
                     onFocus={() =>
                       setInputPasswordDynamicStyles(focusedInputStyles)
                     }

@@ -61,6 +61,7 @@ const Home = () => {
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
+          unmountOnBlur: true,
           title: "Створити публікацію",
 
           tabBarIcon: ToolBarNewIcon,
@@ -94,7 +95,6 @@ const Home = () => {
         }}
       />
     </Tabs.Navigator>
-
   );
 };
 
