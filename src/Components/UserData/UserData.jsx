@@ -2,8 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import userPhoto from "../../images/userPhoto.jpg";
+import { useSelector } from "react-redux";
+import { isLoggedInSelector, userSelector } from "../../redux/auth/authSlice";
 
 const UserData = () => {
+  const userData = useSelector(userSelector);
+  const isAuth = useSelector(isLoggedInSelector);
+  // console.log(userData.email);
+  console.log(isAuth);
+
   return (
     <View style={styles.userDataContainer}>
       <View>

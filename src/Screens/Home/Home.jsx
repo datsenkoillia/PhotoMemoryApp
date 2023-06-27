@@ -14,6 +14,8 @@ import ToolBarNewIcon from "../../svg/toolbar-new-active.svg";
 import ToolBarUserIcon from "../../svg/toolbar-user.svg";
 import LogoutIcon from "../../svg/log-out.svg";
 import BackArrowIcon from "../../svg/arrow-left.svg";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../redux/auth/authSlice";
 
 const Home = () => {
   // const {
@@ -22,6 +24,7 @@ const Home = () => {
 
   const Tabs = createBottomTabNavigator();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <Tabs.Navigator
@@ -49,7 +52,8 @@ const Home = () => {
               style={{ paddingHorizontal: 10 }}
               onPress={() => {
                 console.log("You tapped the Logout button!");
-                navigation.navigate("LoginScreen");
+                dispatch(logOut());
+                // navigation.navigate("LoginScreen");
               }}
             >
               <LogoutIcon />

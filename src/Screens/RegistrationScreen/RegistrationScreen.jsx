@@ -25,8 +25,10 @@ import {
   buttonTextEnabledStyles,
 } from "../../defaultStyles/defaultStyles";
 
-
 import UserPhoto from "../../Components/UserPhoto/UserPhoto";
+import { useDispatch } from "react-redux";
+// import { logIn } from "../../redux/auth/authSlice";
+import { register } from "../../redux/auth/authOperations";
 
 const RegistrationScreen = () => {
   const [login, setLogin] = useState("");
@@ -43,14 +45,23 @@ const RegistrationScreen = () => {
   const [inputPasswordDynamicStyles, setInputPasswordDynamicStyles] =
     useState(bluredInputStyles);
 
-
-  
   const toggleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
   };
 
-
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    console.log("You tapped the Зареєстуватися button!");
+    const userCredentials = {
+      login: login,
+      email: email,
+      password: password,
+    };
+    dispatch(register(userCredentials));
+    // console.log(`{login: ${login}; email: ${email}; password: ${password}}`);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -122,16 +133,25 @@ const RegistrationScreen = () => {
                 </View>
                 <TouchableOpacity
                   style={defaultStyles.button}
-                  onPress={() => {
+                  onPress={
+                    handleSubmit
+                    // () => {
                     // console.log("You tapped the Зареєстуватися button!");
-                    console.log(
-                      `Registration user: {login: ${login}; email: ${email}; password: ${password}}`
-                    );
-                    navigation.navigate("Home", {
-                      screen: "PostsScreen",
-                      // params: { login: login, email: email }
-                    });
-                  }}
+                    // const userCredentials = {
+                    //           login: login,
+                    //           email: email,
+                    //           password: password,
+                    //         };
+                    //         dispatch(logIn(userCredentials));
+                    // console.log(
+                    //   `{login: ${login}; email: ${email}; password: ${password}}`
+                    // );
+                    // navigation.navigate("Home", {
+                    //   screen: "PostsScreen",
+                    //   // params: { login: login, email: email }
+                    // });
+                    // }
+                  }
                 >
                   <Text style={defaultStyles.buttonText}> Зареєстуватися </Text>
                 </TouchableOpacity>

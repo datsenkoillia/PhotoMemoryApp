@@ -14,8 +14,73 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { headerScreensStyles } from "./src/defaultStyles/headerScreensStyles";
 import CreatePostsScreen from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
+import { NavigationRouting } from "./src/Components/NavigationRouting/NavigationRouting";
 
-const MainStack = createStackNavigator();
+import { Provider, useSelector } from "react-redux";
+import { persistor, store } from "./src/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { isLoggedInSelector, userSelector } from "./src/redux/auth/authSlice";
+
+// const AuthStack = createStackNavigator();
+// const MainStack = createStackNavigator();
+
+// const useRoute = (isLoggedIn) => {
+//   if (!isLoggedIn) {
+//     return (
+//       <AuthStack.Navigator initialRouteName="LoginScreen">
+//         <AuthStack.Screen
+//           name="RegistrationScreen"
+//           component={RegistrationScreen}
+//           options={{
+//             headerShown: false,
+//           }}
+//         />
+//         <AuthStack.Screen
+//           name="LoginScreen"
+//           component={LoginScreen}
+//           options={{
+//             headerShown: false,
+//           }}
+//         />
+//       </AuthStack.Navigator>
+//     );
+//   }
+//   return (
+//     <MainStack.Navigator initialRouteName="LoginScreen">
+//       <MainStack.Screen
+//         name="Home"
+//         component={Home}
+//         options={{
+//           headerShown: false,
+//         }}
+//       />
+//       <MainStack.Screen
+//         name="CreatePostsScreen"
+//         component={CreatePostsScreen}
+//         options={{
+//           title: "Створити публікацію",
+//           ...headerScreensStyles,
+//         }}
+//       />
+//       <MainStack.Screen
+//         name="MapScreen"
+//         component={MapScreen}
+//         options={{
+//           title: "Сфотографовано тут:",
+//           ...headerScreensStyles,
+//         }}
+//       />
+//       <MainStack.Screen
+//         name="CommentsScreen"
+//         component={CommentsScreen}
+//         options={{
+//           title: "Коментарі",
+//           ...headerScreensStyles,
+//         }}
+//       />
+//     </MainStack.Navigator>
+//   );
+// };
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,65 +93,79 @@ export default function App() {
     return null;
   }
 
+  // const userData = useSelector(userSelector);
+
+  // const isAuth = useSelector(isLoggedInSelector);
+  // console.log(isAuth);
+
+  // const routing = navigationRouting();
+  // console.log(store);
+
   return (
-    <NavigationContainer>
-      <MainStack.Navigator initialRouteName="LoginScreen">
-        <MainStack.Screen
-          name="RegistrationScreen"
-          component={RegistrationScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="CreatePostsScreen"
-          component={CreatePostsScreen}
-          options={{
-            title: "Створити публікацію",
-            ...headerScreensStyles,
-          }}
-        />
-        <MainStack.Screen
-          name="MapScreen"
-          component={MapScreen}
-          options={{
-            title: "Сфотографовано тут:",
-            ...headerScreensStyles,
-          }}
-        />
-        <MainStack.Screen
-          name="CommentsScreen"
-          component={CommentsScreen}
-          options={{
-            title: "Коментарі",
-            ...headerScreensStyles,
-          }}
-        />
-      </MainStack.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <NavigationRouting />
+          {/* {routing} */}
+          {/* <MainStack.Navigator initialRouteName="LoginScreen">
+            <MainStack.Screen
+              name="RegistrationScreen"
+              component={RegistrationScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <MainStack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <MainStack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <MainStack.Screen
+              name="CreatePostsScreen"
+              component={CreatePostsScreen}
+              options={{
+                title: "Створити публікацію",
+                ...headerScreensStyles,
+              }}
+            />
+            <MainStack.Screen
+              name="MapScreen"
+              component={MapScreen}
+              options={{
+                title: "Сфотографовано тут:",
+                ...headerScreensStyles,
+              }}
+            />
+            <MainStack.Screen
+              name="CommentsScreen"
+              component={CommentsScreen}
+              options={{
+                title: "Коментарі",
+                ...headerScreensStyles,
+              }}
+            />
+          </MainStack.Navigator> */}
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  // },
-  image: {
-    flex: 1,
-  },
-});
+// const styles = StyleSheet.create({
+//   // container: {
+//   //   flex: 1,
+//   // },
+//   image: {
+//     flex: 1,
+//   },
+// });

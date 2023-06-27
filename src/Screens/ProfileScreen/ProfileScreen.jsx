@@ -13,9 +13,12 @@ import userPhoto from "../../images/userPhoto.jpg";
 import { defaultStyles } from "../../defaultStyles/defaultStyles";
 
 import UserPhoto from "../../Components/UserPhoto/UserPhoto";
+import { logOut } from "../../redux/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -26,7 +29,8 @@ const ProfileScreen = () => {
               style={styles.logoutButton}
               onPress={() => {
                 console.log("You tapped the Logout button!");
-                navigation.navigate("LoginScreen");
+                dispatch(logOut());
+                // navigation.navigate("LoginScreen");
               }}
             >
               <LogoutIcon />

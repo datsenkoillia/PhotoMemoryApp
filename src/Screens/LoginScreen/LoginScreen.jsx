@@ -19,6 +19,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import PhotoBG from "../../images/PhotoBG.png";
+import { useDispatch } from "react-redux";
+// import { logIn } from "../../redux/auth/authSlice";
+import { logIn } from "../../redux/auth/authOperations";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -36,6 +39,16 @@ const LoginScreen = () => {
   };
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    console.log(`Login user: {login: email: ${email}; password: ${password}}`);
+    const userCredentials = {
+      email: email,
+      password: password,
+    };
+    dispatch(logIn(userCredentials));
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -98,16 +111,25 @@ const LoginScreen = () => {
 
                 <TouchableOpacity
                   style={defaultStyles.button}
-                  onPress={() => {
-                    // console.log("You tapped the Увійти button!");
-                    console.log(
-                      `Login user: {login: email: ${email}; password: ${password}}`
-                    );
-                    navigation.navigate("Home", {
-                      screen: "PostsScreen",
-                      // params: { email: email },
-                    });
-                  }}
+                  onPress={
+                    handleSubmit
+                    //   () => {
+                    //   // console.log("You tapped the Увійти button!");
+                    //   console.log(
+                    //     `Login user: {login: email: ${email}; password: ${password}}`
+                    //   );
+                    //   const userCredentials = {
+                    //     email: email,
+                    //     password: password,
+                    //   };
+                    //   dispatch(logIn(userCredentials));
+
+                    //   // navigation.navigate("Home", {
+                    //   //   screen: "PostsScreen",
+                    //   //   // params: { email: email },
+                    //   // });
+                    // }
+                  }
                 >
                   <Text style={defaultStyles.buttonText}> Увійти </Text>
                 </TouchableOpacity>
