@@ -15,12 +15,7 @@ export const register = createAsyncThunk(
       await createUserWithEmailAndPassword(auth, email, password);
       await userUpdate({ displayName: login });
       const user = auth.currentUser;
-      return user
-      // const x = await auth.currentUser;
-      // console.log(x);
-      
-
-      // userUpdate({ displayName: login });
+      return user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -43,75 +38,106 @@ export const logIn = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const loginDB = await signInWithEmailAndPassword(auth, email, password);
-      console.log(loginDB.user);
-      // console.log(loginDB.user.email);
+      // console.log("єто логиндбюзер", loginDB.user);
       return loginDB.user;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const authStateChanged = createAsyncThunk(
-  "auth/stateChanged",
-  async ({ email, password }, thunkAPI) => {
-    try {
-      const loginDB = await signInWithEmailAndPassword(auth, email, password);
-      console.log(loginDB.user);
-      // console.log(loginDB.user.email);
-      return loginDB.user;
-    } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    await auth.signOut();
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
-const authStateChanged1 = async (onChange = () => {}) => {
-  onAuthStateChanged((user) => {
-    onChange(user);
-  });
-};
+// export const authStateChanged = async (onChange = () => {}) => {
+//   onAuthStateChanged((user) => {
+//     onChange(user);
+//   });
+// };
 
-
-// export const userUpdate = createAsyncThunk(
-//   "auth/userUpdate",
-//   async (update, thunkAPI) => {
-//     const user = auth.currentUser;
-//     if (user) {
-//       try {
-//         await updateProfile(user, update);
-//       } catch (error) {
-//         console.log(error);
-//         return thunkAPI.rejectWithValue(error.message);
-//       }
+// export const authStateChanged = createAsyncThunk(
+//   "auth/stateChanged",
+//   async (_, thunkAPI) => {
+//     try {
+//       (onChange = () => {}) => {
+//         onAuthStateChanged((user) => {
+//           onChange(user);
+//         });
+//       };
+//     } catch (error) {
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(error.message);
 //     }
 //   }
 // );
 
-// const updateUserProfile = async (update) => {
-//   const user = auth.currentUser;
+// export const authStateChanged = createAsyncThunk(
+//   "auth/stateChanged",
+//   async (_, thunkAPI) => {
 
-//   // якщо такий користувач знайдений
-//   if (user) {
-//     // оновлюємо його профайл
 //     try {
-//       await updateProfile(user, update);
+//       (onChange = () => { }) => {
+
+//         onAuthStateChanged((user) => {
+//           onChange(user);
+//         });
+//       };
+//     } catch (error) {
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+// export const authStateChanged = createAsyncThunk(
+//   "auth/stateChanged",
+//   async (_, thunkAPI) => {
+//     try {
+//       onAuthStateChanged((user) => {
+//         if (user) {
+//           console.log(user);
+//         }
+//       });
+//     } catch (error) {
+//       console.log(error);
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+// export const authStateChanged = createAsyncThunk(
+//   "auth/stateChanged",
+//   async (_, thunkAPI) => {
+//     const user = auth.currentUser;
+
+//     if (user) {
+//       // User is signed in, see docs for a list of available properties
+//       // https://firebase.google.com/docs/reference/js/auth.user
+//       const uid = user.uid;
+//       console.log(uid);
+//       // ...
+//     } else {
+//       console.log('no user');
+//       // User is signed out
+//       // ...
+//     }
+//   }
+// );
+
+// export const authStateChanged = () => {
+//   const user = auth.currentUser;
+//   if (user) {
+//     try {
+//       console.log(user);
 //     } catch (error) {
 //       throw error;
 //     }
 //   }
 // };
-
-// export const logIn = createAsyncThunk(
-//   "contacts/addContact",
-//   async (userCredentials, thunkAPI) => {
-//     try {
-//       const response = await axios.post("/contacts", userCredentials);
-//       return response.data;
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );

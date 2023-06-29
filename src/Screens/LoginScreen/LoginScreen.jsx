@@ -42,7 +42,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    console.log(`Login user: {login: email: ${email}; password: ${password}}`);
+    // console.log(`Login user: {login: email: ${email}; password: ${password}}`);
     const userCredentials = {
       email: email,
       password: password,
@@ -111,25 +111,7 @@ const LoginScreen = () => {
 
                 <TouchableOpacity
                   style={defaultStyles.button}
-                  onPress={
-                    handleSubmit
-                    //   () => {
-                    //   // console.log("You tapped the Увійти button!");
-                    //   console.log(
-                    //     `Login user: {login: email: ${email}; password: ${password}}`
-                    //   );
-                    //   const userCredentials = {
-                    //     email: email,
-                    //     password: password,
-                    //   };
-                    //   dispatch(logIn(userCredentials));
-
-                    //   // navigation.navigate("Home", {
-                    //   //   screen: "PostsScreen",
-                    //   //   // params: { email: email },
-                    //   // });
-                    // }
-                  }
+                  onPress={handleSubmit}
                 >
                   <Text style={defaultStyles.buttonText}> Увійти </Text>
                 </TouchableOpacity>
@@ -144,6 +126,7 @@ const LoginScreen = () => {
                 >
                   <Text style={defaultStyles.isExistAccountText}>
                     Немає акаунту?
+                    <Text> </Text>
                     <Text style={defaultStyles.underlineText}>
                       Зареєструватися
                     </Text>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 // import { StatusBar } from "expo-status-bar";
@@ -18,13 +18,20 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { headerScreensStyles } from "../../defaultStyles/headerScreensStyles";
 import CreatePostsScreen from "../../Screens/CreatePostsScreen/CreatePostsScreen";
 import { isLoggedInSelector } from "../../redux/auth/authSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { authStateChanged } from "../../redux/auth/authOperations";
 
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
 
 export const NavigationRouting = () => {
   const isLoggedIn = useSelector(isLoggedInSelector);
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   console.log("useEfect");
+  //   dispatch(authStateChanged());
+  // }, []);
 
   if (!isLoggedIn) {
     return (

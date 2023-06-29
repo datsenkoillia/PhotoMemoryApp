@@ -8,8 +8,6 @@ import { isLoggedInSelector, userSelector } from "../../redux/auth/authSlice";
 const UserData = () => {
   const userData = useSelector(userSelector);
   const isAuth = useSelector(isLoggedInSelector);
-  // console.log(userData.email);
-  // console.log(isAuth);
 
   return (
     <View style={styles.userDataContainer}>

@@ -15,7 +15,8 @@ import ToolBarUserIcon from "../../svg/toolbar-user.svg";
 import LogoutIcon from "../../svg/log-out.svg";
 import BackArrowIcon from "../../svg/arrow-left.svg";
 import { useDispatch } from "react-redux";
-import { logOut } from "../../redux/auth/authSlice";
+// import { logOut } from "../../redux/auth/authSlice";
+import { logOut } from "../../redux/auth/authOperations";
 
 const Home = () => {
   // const {

@@ -1,71 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import { register, logIn, refreshUser } from "./authOperations";
+import { register, logIn, logOut, authStateChanged } from "./authOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const handleFulfilledRegister = (state, { payload }) => {
   const { displayName, email, uid } = payload;
   const userData = { displayName, email, uid };
-  // state.userName = payload.displayName;
-  // state.userEmail = payload.email;
-  // state.userId = payload.uid;
   state.userData = userData;
-  console.log("here signin");
-  // state.token = payload.token;
+  // console.log("here signin");
   state.isLoggedIn = true;
-  console.log(state);
 };
 
 const handleFulfilledLogin = (state, { payload }) => {
   const { displayName, email, uid } = payload;
   const userData = { displayName, email, uid };
-  // state.userName = payload.displayName;
-  // state.userEmail = payload.email;
-  // state.userId = payload.uid;
   state.userData = userData;
-  console.log("here login");
-  // console.log("here");
-  // state.token = payload.token;
+  // console.log("here login");
   state.isLoggedIn = true;
-  console.log(state);
+  // console.log("стейт после логина", state);
 };
 
 const handleFulfilledLogout = (state) => {
   state.userData = null;
   state.isLoggedIn = false;
-  console.log("logout");
-  // state.userEmail = null;
-  // state.userId = null;
-  // state.userName = null;
-  // console.log(state.userName);
-  console.log("state", state);
 };
 
-const handleFulfilledRefreshUser = (state, { payload }) => {
-  state.user = payload;
-  state.isLoggedIn = true;
-  // state.isRefreshing = false;
+const handleFulfilledStateChange = (state, { payload }) => {
+  console.log("StateChange пейлоад", payload);
+  console.log("StateChange стейт", state);
 };
 
-// const handleRefreshUserPending = (state) => {
-//   state.isRefreshing = true;
-// };
+const handleRefreshUserPending = (state) => {
+  state.isRefreshing = true;
+};
 
-// const handleRefreshUserRejected = (state) => {
-//   state.isRefreshing = false;
-// };
+const handleRefreshUserRejected = (state) => {
+  state.isRefreshing = false;
+};
 
 const initialState = {
-  // user: { name: null, email: null },
-  // user: { email: "", password: "" },
-  // userName: null,
-  // userEmail: null,
-  // userId: null,
   userData: null,
-  // token: null,
   isLoggedIn: false,
-  stateChange: null,
-  // isRefreshing: false,
 };
 
 const authSlice = createSlice({
@@ -81,13 +56,16 @@ const authSlice = createSlice({
     //   state.isLoggedIn = true;
     //   console.log("login");
     // },
-    logOut: handleFulfilledLogout,
+    // logOut: handleFulfilledLogout,
+    // stateChanged: authStateChanged,
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, handleFulfilledRegister)
-      .addCase(logIn.fulfilled, handleFulfilledLogin);
+      .addCase(logIn.fulfilled, handleFulfilledLogin)
+      .addCase(logOut.fulfilled, handleFulfilledLogout);
+    // .addCase(authStateChanged.fulfilled, handleFulfilledStateChange);
     // .addCase(logOut.fulfilled, handleFulfilledLogout);
     // .addCase(refreshUser.fulfilled, handleFulfilledRefreshUser)
     // .addCase(refreshUser.pending, handleRefreshUserPending)
@@ -103,7 +81,7 @@ const authSlice = createSlice({
 const persistConfigAuth = {
   key: "auth",
   storage: AsyncStorage,
-  whitelist: ["userData"],
+  // whitelist: ["userData"],
 };
 
 export const persistedAuthReducer = persistReducer(
@@ -112,6 +90,6 @@ export const persistedAuthReducer = persistReducer(
 );
 
 // export const { create, del, filtered } = authSlice.actions;
-export const { logOut } = authSlice.actions;
+// export const { logOut } = authSlice.actions;
 export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
 export const userSelector = (state) => state.auth.userData;
