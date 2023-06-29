@@ -84,9 +84,12 @@ import { isLoggedInSelector, userSelector } from "./src/redux/auth/authSlice";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    "Roboto-Regular": require("../AwesomeProject/src/assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Medium": require("../AwesomeProject/src/assets/fonts/Roboto-Medium.ttf"),
-    "Roboto-Bold": require("../AwesomeProject/src/assets/fonts/Roboto-Bold.ttf"),
+    // "Roboto-Regular": require("../AwesomeProject/src/assets/fonts/Roboto-Regular.ttf"),
+    // "Roboto-Medium": require("../AwesomeProject/src/assets/fonts/Roboto-Medium.ttf"),
+    // "Roboto-Bold": require("../AwesomeProject/src/assets/fonts/Roboto-Bold.ttf"),
+    "Roboto-Regular": require("./src/assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Medium": require("./src/assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Bold": require("./src/assets/fonts/Roboto-Bold.ttf"),
   });
 
   if (!fontsLoaded) {

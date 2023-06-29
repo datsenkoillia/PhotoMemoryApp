@@ -9,7 +9,7 @@ const UserData = () => {
   const userData = useSelector(userSelector);
   const isAuth = useSelector(isLoggedInSelector);
   // console.log(userData.email);
-  console.log(isAuth);
+  // console.log(isAuth);
 
   return (
     <View style={styles.userDataContainer}>
@@ -18,12 +18,12 @@ const UserData = () => {
       </View>
 
       <View>
-        <View>
-          <Text style={styles.nameText}>Name Surname</Text>
+        {isAuth && <View>
+          <Text style={styles.nameText}>{userData.displayName}</Text>
           {/* </View>
         <View> */}
-          <Text style={styles.emailText}>mail@mail.com</Text>
-        </View>
+          <Text style={styles.emailText}>{userData.email}</Text>
+        </View>}
       </View>
     </View>
   );

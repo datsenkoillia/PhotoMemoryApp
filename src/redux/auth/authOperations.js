@@ -53,6 +53,28 @@ export const logIn = createAsyncThunk(
   }
 );
 
+export const authStateChanged = createAsyncThunk(
+  "auth/stateChanged",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const loginDB = await signInWithEmailAndPassword(auth, email, password);
+      console.log(loginDB.user);
+      // console.log(loginDB.user.email);
+      return loginDB.user;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+const authStateChanged1 = async (onChange = () => {}) => {
+  onAuthStateChanged((user) => {
+    onChange(user);
+  });
+};
+
+
 // export const userUpdate = createAsyncThunk(
 //   "auth/userUpdate",
 //   async (update, thunkAPI) => {
