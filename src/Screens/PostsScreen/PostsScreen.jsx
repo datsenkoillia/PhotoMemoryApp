@@ -4,9 +4,11 @@ import { View, StyleSheet, ScrollView, FlatList, Text } from "react-native";
 import { PostElement } from "../../Components/PostElement/PostElement";
 
 import UserData from "../../Components/UserData/UserData";
+import { useEffect, useState } from "react";
+import { getDataFromFirestore } from "../../firebase/postsOperations";
 
 const PostsScreen = () => {
-  const { params: newPost } = useRoute();
+  // const { params: newPost } = useRoute();
   // const posts = [
   //   {
   //     comments: [],
@@ -36,12 +38,51 @@ const PostsScreen = () => {
   //     place: "Uuioo",
   //   },
   // ];
-  const posts = [newPost];
+  // const posts = [newPost];
+  const [posts, setPosts] = useState([]);
+  // const posts = getDataFromFirestore();
+  // console.log(posts);
+  const fetchPosts = async () => {
+    const gettedPosts = await getDataFromFirestore();
+    // console.log("postsArray:", posts);
+    setPosts(gettedPosts);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+    // console.log("postsArray:", posts);
+    // const postsArray = getDataFromFirestore();
+    // console.log(postsArray);
+    // setPosts(postsArray);
+  }, []);
+
+  console.log("posts", posts);
 
   return (
     <ScrollView style={styles.container}>
       <UserData />
-      {newPost && (
+      {posts && (
+        <View style={styles.postsContainer}>
+          {posts.map((post) => {
+            const { name, place, location, photoURL, comments } = post.data;
+            const { id } = post;
+            console.log(id);
+            return (
+              <View key={id}>
+                <PostElement
+                  name={name}
+                  place={place}
+                  location={location}
+                  photoURL={photoURL}
+                  comments={comments}
+                  postId={id}
+                />
+              </View>
+            );
+          })}
+        </View>
+      )}
+      {/* {posts && (
         <View style={styles.postsContainer}>
           {posts.map((post) => (
             <View key={post.id}>
@@ -49,13 +90,13 @@ const PostsScreen = () => {
                 name={post.name}
                 place={post.place}
                 location={post.location}
-                photoUri={post.photoUri}
+                photoURL={post.photoURL}
                 comments={post.comments}
               />
             </View>
           ))}
         </View>
-      )}
+      )} */}
     </ScrollView>
 
     // <View style={styles.container}>

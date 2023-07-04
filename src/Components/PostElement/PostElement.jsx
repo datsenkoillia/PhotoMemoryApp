@@ -1,5 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { Image } from "expo-image";
 
 import CommentGreyIcon from "../../svg/message-circle.svg";
@@ -9,8 +15,10 @@ export const PostElement = ({
   name,
   place,
   location,
-  photoUri,
+  photoURL,
   comments,
+  postId,
+  userId,
 }) => {
   const navigation = useNavigation();
 
@@ -20,7 +28,7 @@ export const PostElement = ({
     <View>
       <View style={styles.postWrapper}>
         <View style={styles.imageWrapper}>
-          <Image source={photoUri} style={styles.image} />
+          <Image source={photoURL} style={styles.image} />
         </View>
         <View style={styles.postName}>
           <Text style={styles.postNameText}>
@@ -32,8 +40,10 @@ export const PostElement = ({
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("CommentsScreen", {
-                  photoUri,
+                  photoURL,
                   comments,
+                  postId,
+                  userId,
                 });
               }}
             >

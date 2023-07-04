@@ -45,6 +45,7 @@ const Home = () => {
         name="PostsScreen"
         component={PostsScreen}
         options={{
+          unmountOnBlur: true,
           title: "Публікації",
           tabBarIcon: ToolBarGridIcon,
           ...headerScreensStyles,

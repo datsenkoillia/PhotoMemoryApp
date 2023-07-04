@@ -1,3 +1,8 @@
+// import * as fire from "firebase";
+// import "firebase/auth";
+// import "firebase/storage";
+// import "firebase/firestore";
+
 // Для роботи із firebase обовʼязково треба ініціалізувати проект
 import { initializeApp } from "firebase/app";
 // Функція для підключення авторизації в проект
@@ -18,6 +23,8 @@ const firebaseConfig = {
   appId: "1:622025020961:web:a87db6de647c3ed69ab560",
   measurementId: "G-YB8FTQHS0Y",
 };
+
+// export default fire.initializeApp(firebaseConfig);
 
 const app = initializeApp(firebaseConfig);
 
