@@ -105,7 +105,7 @@ const CommentsScreen = () => {
     const newComment = {
       text,
       userName: user.displayName,
-      userId: user.uid
+      userId: user.uid,
     };
     writeCommentToFirestore(newComment, postId);
     setText("");
@@ -115,6 +115,10 @@ const CommentsScreen = () => {
   const fetchComments = async () => {
     const gettedComments = await getCommentsFromFirestore(postId);
     setComments(gettedComments);
+    console.log(gettedComments.length);
+    const commentsCount = { commentsCount: gettedComments.length };
+
+    updateDataInFirestore(`posts`, postId, commentsCount);
   };
 
   useEffect(() => {
@@ -133,8 +137,15 @@ const CommentsScreen = () => {
         {comments.length > 0 && (
           <View style={styles.commentsContainer}>
             {comments.map((comment) => {
-              const { text, userName, userId, place, location, photoURL, comments } =
-                comment.data;
+              const {
+                text,
+                userName,
+                userId,
+                place,
+                location,
+                photoURL,
+                comments,
+              } = comment.data;
               // console.log(text);
               const { id } = comment;
               return (

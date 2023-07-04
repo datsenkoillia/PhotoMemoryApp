@@ -75,7 +75,6 @@ export const getCommentsFromFirestore = async (postId) => {
   }
 };
 
-
 export const updateDataInFirestore = async (
   collectionName,
   docId,
@@ -84,9 +83,7 @@ export const updateDataInFirestore = async (
   try {
     const ref = doc(db, collectionName, docId);
 
-    await updateDoc(ref, {
-      updateDataObject,
-    });
+    await updateDoc(ref, updateDataObject);
     console.log("document updated");
   } catch (error) {
     console.log(error);

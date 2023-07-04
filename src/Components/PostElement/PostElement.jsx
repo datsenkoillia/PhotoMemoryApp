@@ -16,13 +16,13 @@ export const PostElement = ({
   place,
   location,
   photoURL,
-  comments,
+  commentsCount,
   postId,
   userId,
 }) => {
   const navigation = useNavigation();
 
-  // console.log(comments.length);
+  console.log(commentsCount);
 
   return (
     <View>
@@ -41,7 +41,7 @@ export const PostElement = ({
               onPress={() => {
                 navigation.navigate("CommentsScreen", {
                   photoURL,
-                  comments,
+                  // comments,
                   postId,
                   userId,
                 });
@@ -50,7 +50,7 @@ export const PostElement = ({
               <CommentGreyIcon />
             </TouchableOpacity>
 
-            <Text style={styles.commentText}>{comments.length}</Text>
+            <Text style={styles.commentText}>{commentsCount}</Text>
           </View>
           <View style={styles.locationWrap}>
             <TouchableOpacity

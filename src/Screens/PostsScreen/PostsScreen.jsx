@@ -8,43 +8,11 @@ import { useEffect, useState } from "react";
 import { getDataFromFirestore } from "../../firebase/postsOperations";
 
 const PostsScreen = () => {
-  // const { params: newPost } = useRoute();
-  // const posts = [
-  //   {
-  //     comments: [],
-  //     id: "664",
-  //     location: { latitude: 37.4220936, longitude: -122.083922 },
-  //     name: "Rrrr",
-  //     photoUri:
-  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/a948d8e7-efea-47c1-86ce-7592486e0e7a.jpg",
-  //     place: "Yyyy",
-  //   },
-  //   {
-  //     comments: [],
-  //     id: "665",
-  //     location: { latitude: 37.4220936, longitude: -122.083922 },
-  //     name: "Guudd",
-  //     photoUri:
-  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/83ec3c0a-6d00-4df2-8d95-5011857ffd08.jpg",
-  //     place: "Oooll",
-  //   },
-  //   {
-  //     comments: [],
-  //     id: "666",
-  //     location: { latitude: 37.4220936, longitude: -122.083922 },
-  //     name: "Treeee",
-  //     photoUri:
-  //       "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540illiadatsenko%252FAwesomeProject/Camera/8be88b38-de7f-490c-871e-0140b527d45b.jpg",
-  //     place: "Uuioo",
-  //   },
-  // ];
-  // const posts = [newPost];
   const [posts, setPosts] = useState([]);
-  // const posts = getDataFromFirestore();
-  // console.log(posts);
+
   const fetchPosts = async () => {
     const gettedPosts = await getDataFromFirestore();
-    // console.log("postsArray:", posts);
+
     setPosts(gettedPosts);
   };
 
@@ -60,7 +28,8 @@ const PostsScreen = () => {
       {posts && (
         <View style={styles.postsContainer}>
           {posts.map((post) => {
-            const { name, place, location, photoURL, comments } = post.data;
+            const { name, place, location, photoURL, commentsCount } =
+              post.data;
             const { id } = post;
             console.log(id);
             return (
@@ -70,7 +39,7 @@ const PostsScreen = () => {
                   place={place}
                   location={location}
                   photoURL={photoURL}
-                  comments={comments}
+                  commentsCount={commentsCount}
                   postId={id}
                 />
               </View>
