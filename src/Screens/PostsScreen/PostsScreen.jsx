@@ -50,10 +50,6 @@ const PostsScreen = () => {
 
   useEffect(() => {
     fetchPosts();
-    // console.log("postsArray:", posts);
-    // const postsArray = getDataFromFirestore();
-    // console.log(postsArray);
-    // setPosts(postsArray);
   }, []);
 
   console.log("posts", posts);

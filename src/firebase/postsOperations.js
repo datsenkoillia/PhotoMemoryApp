@@ -55,6 +55,27 @@ export const getDataFromFirestore = async () => {
   }
 };
 
+export const getCommentsFromFirestore = async (postId) => {
+  try {
+    let dataArray = [];
+    const postRef = doc(collection(db, `posts`), postId);
+    const snapshot = await getDocs(collection(postRef, "comments"));
+    // snapshot.forEach((doc) => console.log(`${doc.id} =>`, doc.data()));
+    snapshot.forEach((doc) => {
+      dataArray.push({ id: doc.id, data: doc.data() });
+    });
+
+    console.log("dataArray:", dataArray);
+
+    return dataArray;
+    // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
 export const updateDataInFirestore = async (
   collectionName,
   docId,

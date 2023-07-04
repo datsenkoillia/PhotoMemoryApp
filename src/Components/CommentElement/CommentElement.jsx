@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";
 
 const CommentElement = ({ text, date, avatar, id, userId, userName }) => {
-  // console.log(avatar);
+  // console.log(text);
 
   const { uid } = useSelector(userSelector);
   // console.log(uid);
+  // console.log(userId);
 
   const isAuthor = uid === userId;
   // console.log(isAuthor);

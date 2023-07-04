@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import SendIcon from "../../svg/send.svg";
 
@@ -22,6 +22,7 @@ import CommentElement from "../../Components/CommentElement/CommentElement";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";
 import {
+  getCommentsFromFirestore,
   updateDataInFirestore,
   writeCommentToFirestore,
 } from "../../firebase/postsOperations";
@@ -87,25 +88,38 @@ const CommentsScreen = () => {
   // ];
 
   const {
-    params: { photoURL, comments, postId, userName },
+    params: { photoURL, commentsss, postId, userName },
   } = useRoute();
-  const [comment, setComment] = useState("");
+  const [text, setText] = useState("");
+  const [comments, setComments] = useState([]);
   const [inputDynamicStyles, setInputDynamicStyles] =
     useState(bluredInputStyles);
 
-  console.log(postId);
+  // console.log(postId);
 
   const user = useSelector(userSelector);
-  console.log(user.displayName);
+  // console.log(user);
 
   const createComment = async () => {
+    console.log(text);
     const newComment = {
-      comment,
+      text,
       userName: user.displayName,
+      userId: user.uid
     };
     writeCommentToFirestore(newComment, postId);
-    // updateDataInFirestore('comments', postId, newComment);
+    setText("");
+    fetchComments();
   };
+
+  const fetchComments = async () => {
+    const gettedComments = await getCommentsFromFirestore(postId);
+    setComments(gettedComments);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   return (
     <>
@@ -118,16 +132,24 @@ const CommentsScreen = () => {
         </View> */}
         {comments.length > 0 && (
           <View style={styles.commentsContainer}>
-            {comments.map((comment) => (
-              <View key={comment.id}>
-                <CommentElement
-                  text={comment.text}
-                  date={comment.date}
-                  avatar={comment.avatar}
-                  id={comment.id}
-                />
-              </View>
-            ))}
+            {comments.map((comment) => {
+              const { text, userName, userId, place, location, photoURL, comments } =
+                comment.data;
+              // console.log(text);
+              const { id } = comment;
+              return (
+                <View key={id}>
+                  <CommentElement
+                    text={text}
+                    userName={userName}
+                    userId={userId}
+                    // date={comment.date}
+                    // avatar={comment.avatar}
+                    id={id}
+                  />
+                </View>
+              );
+            })}
           </View>
         )}
       </ScrollView>
@@ -135,8 +157,8 @@ const CommentsScreen = () => {
         <TextInput
           placeholder="Коментувати..."
           // secureTextEntry={!isShowPassword}
-          value={comment}
-          onChangeText={setComment}
+          value={text}
+          onChangeText={setText}
           style={[
             defaultStyles.input,
             styles.commentInput,

@@ -38,7 +38,7 @@ export const logIn = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const loginDB = await signInWithEmailAndPassword(auth, email, password);
-      // console.log("єто логиндбюзер", loginDB.user);
+      console.log("єто логиндбюзер", loginDB.user);
       return loginDB.user;
     } catch (error) {
       // console.log(error);
