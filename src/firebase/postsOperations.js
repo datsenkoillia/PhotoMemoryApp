@@ -45,7 +45,7 @@ export const getDataFromFirestore = async () => {
       dataArray.push({ id: doc.id, data: doc.data() });
     });
 
-    console.log("dataArray:", dataArray);
+    // console.log("dataArray:", dataArray);
 
     return dataArray;
     // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
@@ -65,7 +65,7 @@ export const getCommentsFromFirestore = async (postId) => {
       dataArray.push({ id: doc.id, data: doc.data() });
     });
 
-    console.log("dataArray:", dataArray);
+    // console.log("dataArray:", dataArray);
 
     return dataArray;
     // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));

@@ -12,8 +12,9 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import rootReducer from "./rootReducer";
 import { persistedAuthReducer } from "./auth/authSlice";
+import { postsReducer } from "./posts/postsSlice";
 
-const reducer = { auth: persistedAuthReducer };
+const reducer = { auth: persistedAuthReducer, posts: postsReducer };
 
 export const store = configureStore({
   reducer,

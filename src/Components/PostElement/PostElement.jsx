@@ -22,7 +22,7 @@ export const PostElement = ({
 }) => {
   const navigation = useNavigation();
 
-  console.log(commentsCount);
+  // console.log(commentsCount);
 
   return (
     <View>

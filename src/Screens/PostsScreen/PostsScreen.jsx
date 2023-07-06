@@ -6,21 +6,26 @@ import { PostElement } from "../../Components/PostElement/PostElement";
 import UserData from "../../Components/UserData/UserData";
 import { useEffect, useState } from "react";
 import { getDataFromFirestore } from "../../firebase/postsOperations";
+import { useDispatch, useSelector } from "react-redux";
+import { postsSelector } from "../../redux/posts/postsSlice";
+import { fetchPosts } from "../../redux/posts/postsOperations";
 
 const PostsScreen = () => {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
+  const posts = useSelector(postsSelector);
+  const dispatch = useDispatch();
 
-  const fetchPosts = async () => {
-    const gettedPosts = await getDataFromFirestore();
+  // const fetchPosts = async () => {
+  //   const gettedPosts = await getDataFromFirestore();
 
-    setPosts(gettedPosts);
-  };
+  //   setPosts(gettedPosts);
+  // };
 
   useEffect(() => {
-    fetchPosts();
+    dispatch(fetchPosts());
   }, []);
 
-  console.log("posts", posts);
+  // console.log("posts", posts);
 
   return (
     <ScrollView style={styles.container}>
@@ -31,7 +36,7 @@ const PostsScreen = () => {
             const { name, place, location, photoURL, commentsCount } =
               post.data;
             const { id } = post;
-            console.log(id);
+            // console.log(id);
             return (
               <View key={id}>
                 <PostElement

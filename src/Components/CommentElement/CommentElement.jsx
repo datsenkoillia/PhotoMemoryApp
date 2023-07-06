@@ -4,7 +4,15 @@ import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";
 
-const CommentElement = ({ text, date, avatar, id, userId, userName }) => {
+const CommentElement = ({
+  text,
+  date,
+  avatar,
+  id,
+  userId,
+  createTime,
+  userName,
+}) => {
   // console.log(text);
 
   const { uid } = useSelector(userSelector);
@@ -13,6 +21,11 @@ const CommentElement = ({ text, date, avatar, id, userId, userName }) => {
 
   const isAuthor = uid === userId;
   // console.log(isAuthor);
+
+  // console.log(createTime);
+
+  const commentDate = new Date(createTime).toLocaleString();
+  // console.log(commentDate);
 
   return (
     <View
@@ -32,7 +45,7 @@ const CommentElement = ({ text, date, avatar, id, userId, userName }) => {
         <Text
           style={[styles.commentDate, isAuthor && styles.commentDateIsAutor]}
         >
-          {date}
+          {commentDate}
         </Text>
       </View>
     </View>

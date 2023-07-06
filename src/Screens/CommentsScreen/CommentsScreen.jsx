@@ -19,13 +19,14 @@ import {
   defaultStyles,
 } from "../../defaultStyles/defaultStyles";
 import CommentElement from "../../Components/CommentElement/CommentElement";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";
 import {
   getCommentsFromFirestore,
   updateDataInFirestore,
   writeCommentToFirestore,
 } from "../../firebase/postsOperations";
+import { fetchPosts } from "../../redux/posts/postsOperations";
 
 const CommentsScreen = () => {
   // const commentss = [
@@ -97,33 +98,40 @@ const CommentsScreen = () => {
 
   // console.log(postId);
 
+  const dispatch = useDispatch();
+
   const user = useSelector(userSelector);
   // console.log(user);
 
   const createComment = async () => {
-    console.log(text);
+    // console.log(text);
     const newComment = {
       text,
       userName: user.displayName,
       userId: user.uid,
+      createTime: Date.now(),
     };
-    writeCommentToFirestore(newComment, postId);
+    console.log(newComment);
+    await writeCommentToFirestore(newComment, postId);
     setText("");
-    fetchComments();
+    await fetchComments();
+    dispatch(fetchPosts());
   };
 
   const fetchComments = async () => {
     const gettedComments = await getCommentsFromFirestore(postId);
     setComments(gettedComments);
-    console.log(gettedComments.length);
+    // console.log(gettedComments.length);
     const commentsCount = { commentsCount: gettedComments.length };
 
-    updateDataInFirestore(`posts`, postId, commentsCount);
+    await updateDataInFirestore(`posts`, postId, commentsCount);
   };
 
   useEffect(() => {
     fetchComments();
   }, []);
+
+  console.log(comments);
 
   return (
     <>
@@ -141,12 +149,13 @@ const CommentsScreen = () => {
                 text,
                 userName,
                 userId,
+                createTime,
                 place,
                 location,
                 photoURL,
                 comments,
               } = comment.data;
-              // console.log(text);
+              // console.log(createTime);
               const { id } = comment;
               return (
                 <View key={id}>
@@ -154,6 +163,7 @@ const CommentsScreen = () => {
                     text={text}
                     userName={userName}
                     userId={userId}
+                    createTime={createTime}
                     // date={comment.date}
                     // avatar={comment.avatar}
                     id={id}
