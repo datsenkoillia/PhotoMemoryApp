@@ -14,7 +14,7 @@ import userPhoto from "../../images/userPhoto.jpg";
 import { defaultStyles } from "../../defaultStyles/defaultStyles";
 
 import UserPhoto from "../../Components/UserPhoto/UserPhoto";
-import { logOut } from "../../redux/auth/authSlice";
+import { logOut, userSelector } from "../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { userPostsSelector } from "../../redux/posts/postsSlice";
 import { fetchUserPosts } from "../../redux/posts/postsOperations";
@@ -23,6 +23,7 @@ import { PostElement } from "../../Components/PostElement/PostElement";
 
 const ProfileScreen = () => {
   const posts = useSelector(userPostsSelector);
+  const user = useSelector(userSelector);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -49,9 +50,8 @@ const ProfileScreen = () => {
                   <LogoutIcon />
                 </TouchableOpacity>
                 <UserPhoto photo={userPhoto} />
-                <Text style={defaultStyles.header}>Natali Romanova</Text>
+                <Text style={defaultStyles.header}>{user.displayName}</Text>
                 <View>
-                  <Text>Posts</Text>
                   {posts.map((post) => {
                     const { name, place, location, photoURL, commentsCount } =
                       post.data;
