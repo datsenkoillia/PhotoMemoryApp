@@ -9,6 +9,7 @@ import {
 import { Image } from "expo-image";
 
 import CommentGreyIcon from "../../svg/message-circle.svg";
+import CommentOrangeIcon from "../../svg/message-circle-filled.svg";
 import LocationIcon from "../../svg/map-pin.svg";
 
 export const PostElement = ({
@@ -47,10 +48,21 @@ export const PostElement = ({
                 });
               }}
             >
-              <CommentGreyIcon />
+              {commentsCount === 0 ? (
+                <CommentGreyIcon />
+              ) : (
+                <CommentOrangeIcon />
+              )}
             </TouchableOpacity>
 
-            <Text style={styles.commentText}>{commentsCount}</Text>
+            <Text
+              style={[
+                styles.commentText,
+                commentsCount > 0 && styles.commentTextActive,
+              ]}
+            >
+              {commentsCount}
+            </Text>
           </View>
           <View style={styles.locationWrap}>
             <TouchableOpacity
@@ -132,6 +144,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#BDBDBD",
+  },
+
+  commentTextActive: {
+    color: "#212121",
   },
 
   locationText: {

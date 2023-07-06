@@ -29,8 +29,6 @@ import {
 import { fetchPosts, fetchUserPosts } from "../../redux/posts/postsOperations";
 
 const CommentsScreen = () => {
- 
-
   const {
     params: { photoURL, commentsss, postId, userName },
   } = useRoute();
@@ -47,6 +45,9 @@ const CommentsScreen = () => {
   // console.log(user);
 
   const createComment = async () => {
+    if (!text) {
+      return;
+    }
     // console.log(text);
     const newComment = {
       text,
@@ -54,7 +55,7 @@ const CommentsScreen = () => {
       userId: user.uid,
       createTime: Date.now(),
     };
-    console.log(newComment);
+    // console.log(newComment);
     await writeCommentToFirestore(newComment, postId);
     setText("");
     await fetchComments();
