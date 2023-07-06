@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     top: -60,
     left: 141,
     borderRadius: 16,
+    // elevation: 3,
   },
 
   addPhotoButton: {
@@ -60,5 +61,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 16,
+    // zIndex: 9999,
   },
 });

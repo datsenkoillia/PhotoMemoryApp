@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPosts } from "./postsOperations";
+import { fetchPosts, fetchUserPosts } from "./postsOperations";
 // import { persistReducer } from "redux-persist";
 // import { register, logIn, logOut, authStateChanged } from "./authOperations";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -44,8 +44,14 @@ const handleFulfilledFetchPosts = (state, { payload }) => {
   state.posts = payload;
 };
 
+const handleFulfilledFetchUserPosts = (state, { payload }) => {
+  console.log(payload);
+  state.userPosts = payload;
+};
+
 const initialState = {
   posts: [],
+  userPosts: [],
   // isLoggedIn: false,
 };
 
@@ -72,7 +78,9 @@ const postsSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchPosts.fulfilled, handleFulfilledFetchPosts);
+    builder
+      .addCase(fetchPosts.fulfilled, handleFulfilledFetchPosts)
+      .addCase(fetchUserPosts.fulfilled, handleFulfilledFetchUserPosts);
     //   .addCase(logIn.fulfilled, handleFulfilledLogin)
     //   .addCase(logOut.fulfilled, handleFulfilledLogout);
     // .addCase(authStateChanged.fulfilled, handleFulfilledStateChange);
@@ -94,3 +102,4 @@ export const postsReducer = postsSlice.reducer;
 // export const { logOut } = authSlice.actions;
 // export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
 export const postsSelector = (state) => state.posts.posts;
+export const userPostsSelector = (state) => state.posts.userPosts;

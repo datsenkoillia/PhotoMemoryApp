@@ -100,6 +100,7 @@ export default function CreatePost() {
     // console.log(photoURL);
 
     let locationGet = await Location.getCurrentPositionAsync();
+    console.log(locationGet);
 
     const coords = {
       latitude: locationGet.coords.latitude,

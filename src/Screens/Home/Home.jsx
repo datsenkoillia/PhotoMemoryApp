@@ -93,6 +93,7 @@ const Home = () => {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
+          unmountOnBlur: true,
           title: "Профіль",
           headerShown: false,
 
