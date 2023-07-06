@@ -77,7 +77,7 @@ const RegistrationScreen = () => {
               keyboardVerticalOffset={-165}
             >
               <View style={[defaultStyles.formwrap]}>
-                <UserPhoto photo={userPhoto} />
+                <UserPhoto />
                 <Text style={defaultStyles.header}>Реєстрація</Text>
 
                 <TextInput
