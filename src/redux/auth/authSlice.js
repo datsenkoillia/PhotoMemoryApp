@@ -4,8 +4,8 @@ import { register, logIn, logOut, authStateChanged } from "./authOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const handleFulfilledRegister = (state, { payload }) => {
-  const { displayName, email, uid } = payload;
-  const userData = { displayName, email, uid };
+  const { displayName, email, uid, photoURL } = payload;
+  const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
   // console.log("here signin");
   state.isLoggedIn = true;
@@ -22,7 +22,9 @@ const handleFulfilledLogin = (state, { payload }) => {
 
 const handleFulfilledLogout = (state) => {
   state.userData = null;
+  state.userAvatar = undefined;
   state.isLoggedIn = false;
+  // console.log("handleFulfilledLogout");
 };
 
 const handleFulfilledStateChange = (state, { payload }) => {
@@ -40,6 +42,7 @@ const handleRefreshUserRejected = (state) => {
 
 const initialState = {
   userData: null,
+  userAvatarUri: null,
   isLoggedIn: false,
 };
 
@@ -48,9 +51,9 @@ const authSlice = createSlice({
   initialState,
 
   reducers: {
-    // filtered: (state, { payload }) => {
-    //   state.filter = payload.toLowerCase();
-    // },
+    setAvatarUri: (state, { payload }) => {
+      state.userAvatarUri = payload;
+    },
     // logIn: (state, { payload }) => {
     //   state.user = payload;
     //   state.isLoggedIn = true;
@@ -89,7 +92,8 @@ export const persistedAuthReducer = persistReducer(
   authSlice.reducer
 );
 
-// export const { create, del, filtered } = authSlice.actions;
+export const { setAvatarUri } = authSlice.actions;
 // export const { logOut } = authSlice.actions;
 export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
 export const userSelector = (state) => state.auth.userData;
+export const userAvatarUriSelector = (state) => state.auth.userAvatarUri;

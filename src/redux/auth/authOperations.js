@@ -9,11 +9,12 @@ import { auth } from "../../firebase/config";
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ login, email, password }, thunkAPI) => {
+  async ({ login, email, password, avatar }, thunkAPI) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await userUpdate({ displayName: login });
+      await userUpdate({ displayName: login, photoURL: avatar });
       const user = auth.currentUser;
+      console.log(user);
       return user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

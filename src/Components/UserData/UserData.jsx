@@ -9,19 +9,30 @@ const UserData = () => {
   const userData = useSelector(userSelector);
   const isAuth = useSelector(isLoggedInSelector);
 
+  console.log(userData.photoURL);
+
+  let avatar;
+  if (userData.photoURL) {
+    avatar = userData.photoURL;
+  } else {
+    avatar = userPhoto;
+  }
+
   return (
     <View style={styles.userDataContainer}>
       <View>
-        <Image source={userPhoto} style={styles.userPhoto} />
+        {isAuth && <Image source={avatar} style={styles.userPhoto} />}
       </View>
 
       <View>
-        {isAuth && <View>
-          <Text style={styles.nameText}>{userData.displayName}</Text>
-          {/* </View>
+        {isAuth && (
+          <View>
+            <Text style={styles.nameText}>{userData.displayName}</Text>
+            {/* </View>
         <View> */}
-          <Text style={styles.emailText}>{userData.email}</Text>
-        </View>}
+            <Text style={styles.emailText}>{userData.email}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -40,6 +51,7 @@ const styles = StyleSheet.create({
   userPhoto: {
     width: 60,
     height: 60,
+    borderRadius: 16,
   },
 
   nameText: {

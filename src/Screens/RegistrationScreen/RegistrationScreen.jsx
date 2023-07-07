@@ -17,6 +17,9 @@ import { useNavigation } from "@react-navigation/native";
 import PhotoBG from "../../images/PhotoBG.png";
 import userPhoto from "../../images/userPhoto.jpg";
 
+import { storage } from "../../firebase/config";
+import { ref, uploadBytes, put, getDownloadURL } from "firebase/storage";
+
 import {
   bluredInputStyles,
   focusedInputStyles,
@@ -26,11 +29,16 @@ import {
 } from "../../defaultStyles/defaultStyles";
 
 import UserPhoto from "../../Components/UserPhoto/UserPhoto";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { logIn } from "../../redux/auth/authSlice";
 import { register } from "../../redux/auth/authOperations";
+import {
+  setAvatarUri,
+  userAvatarUriSelector,
+} from "../../redux/auth/authSlice";
 
 const RegistrationScreen = () => {
+  const avatarUri = useSelector(userAvatarUriSelector);
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,14 +60,40 @@ const RegistrationScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const uploadAvatarToServer = async () => {
+    const res = await fetch(avatarUri);
+    const file = await res.blob();
+    const uniquePostId = Date.now().toString();
+    console.log(uniquePostId);
+    const storageRef = ref(storage, `avatarsImages/${uniquePostId}`);
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    console.log("link", downloadURL);
+    return downloadURL;
+    // setPhotoURL(await getDownloadURL(storageRef));
+    // console.log(downloadURL);
+  };
+
+  const handleSubmit = async () => {
     console.log("You tapped the Зареєстуватися button!");
+    let avatarUrl;
+
+    if (avatarUri) {
+      avatarUrl = await uploadAvatarToServer();
+    } else {
+      avatarUrl = null;
+    }
+
     const userCredentials = {
       login: login,
       email: email,
       password: password,
+      avatar: avatarUrl,
     };
+
     dispatch(register(userCredentials));
+    dispatch(setAvatarUri(null));
+
     // console.log(`{login: ${login}; email: ${email}; password: ${password}}`);
   };
 

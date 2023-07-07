@@ -14,10 +14,19 @@ import {
 } from "react-native";
 import ImagePickerExample from "../ImagePicker/ImagePicker";
 import * as ImagePicker from "expo-image-picker";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAvatar,
+  setAvatarUri,
+  userAvatarUriSelector,
+} from "../../redux/auth/authSlice";
 
 const UserPhoto = ({ photo }) => {
+  const dispatch = useDispatch();
+  const avatar = useSelector(userAvatarUriSelector);
+
   const [isAvatar, setIsAvatar] = useState(false);
-  const [avatar, setAvatar] = useState(null);
+  // const [avatar, setAvatar] = useState(null);
   const [addPhotoButtonDynamicStyles, setAddPhotoButtonDynamicStyles] =
     useState(noPhotoButtonStyles);
 
@@ -33,7 +42,7 @@ const UserPhoto = ({ photo }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -51,7 +60,7 @@ const UserPhoto = ({ photo }) => {
         name: filename,
       };
       console.log(result.assets[0].uri);
-      setAvatar(result.assets[0].uri);
+      dispatch(setAvatarUri(result.assets[0].uri));
       // setIsAvatar(true);
     } else {
       // setAvatar(null);
@@ -65,19 +74,17 @@ const UserPhoto = ({ photo }) => {
       pickImage();
       setAddPhotoButtonDynamicStyles(yesPhotoButtonStyles);
     } else {
-      setAvatar(null);
+      dispatch(setAvatarUri(undefined));
       setAddPhotoButtonDynamicStyles(noPhotoButtonStyles);
     }
   };
 
-console.log(avatar);
+  console.log(avatar);
 
   return (
     <>
       <View style={styles.photoWrapper}>
-        {avatar && (
-          <Image source={{ uri: avatar }} style={styles.userPhoto} />
-        )}
+        {avatar && <Image source={{ uri: avatar }} style={styles.userPhoto} />}
         <TouchableOpacity
           style={styles.addPhotoButton}
           onPress={
