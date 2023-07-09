@@ -14,7 +14,6 @@ const handleFulfilledRegister = (state, { payload }) => {
   const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
   state.userAvatarURL = photoURL;
-  // console.log("here signin");
   state.isLoggedIn = true;
   if (photoURL) {
     state.isAvatar = true;
@@ -22,13 +21,13 @@ const handleFulfilledRegister = (state, { payload }) => {
 };
 
 const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
-  console.log('payload', payload);
+  console.log("payload", payload);
   const { displayName, email, uid, photoURL } = payload;
   const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
   state.userAvatarURL = photoURL;
-  if (photoURL === 'null') {
-    console.log('photoURL === null', photoURL === 'null');
+  if (photoURL === "null") {
+    console.log("photoURL === null", photoURL === "null");
     state.isAvatar = false;
   } else {
     state.isAvatar = true;
@@ -40,12 +39,10 @@ const handleFulfilledLogin = (state, { payload }) => {
   const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
   state.userAvatarURL = photoURL;
-  // console.log("here login");
   state.isLoggedIn = true;
   if (photoURL) {
     state.isAvatar = true;
   }
-  // console.log("стейт после логина", state);
 };
 
 const handleFulfilledLogout = (state) => {
@@ -54,21 +51,6 @@ const handleFulfilledLogout = (state) => {
   state.userAvatarUri = null;
   state.isLoggedIn = false;
   state.isAvatar = false;
-  // dispatch(setAvatarUri(null));
-  // console.log("handleFulfilledLogout");
-};
-
-const handleFulfilledStateChange = (state, { payload }) => {
-  console.log("StateChange пейлоад", payload);
-  console.log("StateChange стейт", state);
-};
-
-const handleRefreshUserPending = (state) => {
-  state.isRefreshing = true;
-};
-
-const handleRefreshUserRejected = (state) => {
-  state.isRefreshing = false;
 };
 
 const initialState = {
@@ -90,13 +72,6 @@ const authSlice = createSlice({
     setIsAvatar: (state, { payload }) => {
       state.isAvatar = payload;
     },
-    // logIn: (state, { payload }) => {
-    //   state.user = payload;
-    //   state.isLoggedIn = true;
-    //   console.log("login");
-    // },
-    // logOut: handleFulfilledLogout,
-    // stateChanged: authStateChanged,
   },
 
   extraReducers: (builder) => {
@@ -105,23 +80,12 @@ const authSlice = createSlice({
       .addCase(userAvatarUpdate.fulfilled, handleFulfilledUserAvatarUpdate)
       .addCase(logIn.fulfilled, handleFulfilledLogin)
       .addCase(logOut.fulfilled, handleFulfilledLogout);
-    // .addCase(authStateChanged.fulfilled, handleFulfilledStateChange);
-    // .addCase(logOut.fulfilled, handleFulfilledLogout);
-    // .addCase(refreshUser.fulfilled, handleFulfilledRefreshUser)
-    // .addCase(refreshUser.pending, handleRefreshUserPending)
-    // .addCase(refreshUser.rejected, handleRefreshUserRejected)
-    // .addMatcher((action) => action.type.endsWith("/pending"), handlePending)
-    // .addMatcher(
-    //   (action) => action.type.endsWith("/rejected"),
-    //   handleRejected
-    // );
   },
 });
 
 const persistConfigAuth = {
   key: "auth",
   storage: AsyncStorage,
-  // whitelist: ["userData"],
 };
 
 export const persistedAuthReducer = persistReducer(
@@ -131,7 +95,6 @@ export const persistedAuthReducer = persistReducer(
 
 export const { setAvatarUri } = authSlice.actions;
 export const { setIsAvatar } = authSlice.actions;
-// export const { logOut } = authSlice.actions;
 export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
 export const isAvatarSelector = (state) => state.auth.isAvatar;
 export const userSelector = (state) => state.auth.userData;

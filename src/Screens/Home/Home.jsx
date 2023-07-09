@@ -7,22 +7,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "../PostsScreen/PostsScreen";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "../ProfileScreen/ProfileScreen";
-// import CommentsScreen from "../CommentsScreen/CommentsScreen";
 
 import ToolBarGridIcon from "../../svg/toolbar-grid.svg";
 import ToolBarNewIcon from "../../svg/toolbar-new-active.svg";
 import ToolBarUserIcon from "../../svg/toolbar-user.svg";
 import LogoutIcon from "../../svg/log-out.svg";
 import BackArrowIcon from "../../svg/arrow-left.svg";
+
 import { useDispatch } from "react-redux";
-// import { logOut } from "../../redux/auth/authSlice";
 import { logOut } from "../../redux/auth/authOperations";
 
 const Home = () => {
-  // const {
-  //   params: { login, email },
-  // } = useRoute();
-
   const Tabs = createBottomTabNavigator();
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -53,9 +48,8 @@ const Home = () => {
             <TouchableOpacity
               style={{ paddingHorizontal: 10 }}
               onPress={() => {
-                console.log("You tapped the Logout button!");
+                // console.log("You tapped the Logout button!");
                 dispatch(logOut());
-                // navigation.navigate("LoginScreen");
               }}
             >
               <LogoutIcon />
@@ -76,9 +70,7 @@ const Home = () => {
             <TouchableOpacity
               style={{ paddingHorizontal: 10 }}
               onPress={() => {
-                console.log("You tapped the Back button!");
-                // navigation.goBack();
-                // navigation.pop();
+                // console.log("You tapped the Back button!");
                 navigation.navigate("PostsScreen");
               }}
             >

@@ -23,8 +23,6 @@ export const PostElement = ({
 }) => {
   const navigation = useNavigation();
 
-  // console.log(commentsCount);
-
   return (
     <View>
       <View style={styles.postWrapper}>
@@ -42,7 +40,6 @@ export const PostElement = ({
               onPress={() => {
                 navigation.navigate("CommentsScreen", {
                   photoURL,
-                  // comments,
                   postId,
                   userId,
                 });
@@ -96,7 +93,6 @@ const styles = StyleSheet.create({
 
   imageWrapper: {
     height: 240,
-    // marginTop: 32,
     marginBottom: 8,
     borderRadius: 8,
     backgroundColor: "#F6F6F6",

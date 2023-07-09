@@ -1,13 +1,13 @@
 import { useRoute } from "@react-navigation/native";
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 const MapScreen = () => {
   const { params: { location, name, place } } = useRoute();
 
   const { latitude, longitude } = location;
-  // console.log(name);
+
 
   return (
     <View style={styles.container}>

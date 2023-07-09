@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Image,
   ImageBackground,
   TouchableWithoutFeedback,
   Keyboard,
@@ -15,27 +14,21 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import PhotoBG from "../../images/PhotoBG.png";
-import userPhoto from "../../images/userPhoto.jpg";
 
 import { storage } from "../../firebase/config";
-import { ref, uploadBytes, put, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import {
   bluredInputStyles,
   focusedInputStyles,
   defaultStyles,
-  buttonTextDisabledStyles,
-  buttonTextEnabledStyles,
 } from "../../defaultStyles/defaultStyles";
 
 import UserPhoto from "../../Components/UserPhoto/UserPhoto";
 import { useDispatch, useSelector } from "react-redux";
-// import { logIn } from "../../redux/auth/authSlice";
+
 import { register } from "../../redux/auth/authOperations";
-import {
-  setAvatarUri,
-  userAvatarUriSelector,
-} from "../../redux/auth/authSlice";
+import { userAvatarUriSelector } from "../../redux/auth/authSlice";
 
 const RegistrationScreen = () => {
   const avatarUri = useSelector(userAvatarUriSelector);
@@ -90,9 +83,6 @@ const RegistrationScreen = () => {
     };
 
     dispatch(register(userCredentials));
-    // dispatch(setAvatarUri(null));
-
-    // console.log(`{login: ${login}; email: ${email}; password: ${password}}`);
   };
 
   return (
@@ -149,14 +139,7 @@ const RegistrationScreen = () => {
                   />
                   <TouchableOpacity
                     style={defaultStyles.showPassButton}
-                    onPress={() => {
-                      console.log(
-                        `You tapped the ${
-                          !isShowPassword ? "Показати" : "Cховати"
-                        } button!`
-                      );
-                      toggleShowPassword();
-                    }}
+                    onPress={toggleShowPassword}
                   >
                     <Text style={defaultStyles.showPassAreaText}>
                       {!isShowPassword ? "Показати" : "Cховати"}
@@ -165,32 +148,14 @@ const RegistrationScreen = () => {
                 </View>
                 <TouchableOpacity
                   style={defaultStyles.button}
-                  onPress={
-                    handleSubmit
-                    // () => {
-                    // console.log("You tapped the Зареєстуватися button!");
-                    // const userCredentials = {
-                    //           login: login,
-                    //           email: email,
-                    //           password: password,
-                    //         };
-                    //         dispatch(logIn(userCredentials));
-                    // console.log(
-                    //   `{login: ${login}; email: ${email}; password: ${password}}`
-                    // );
-                    // navigation.navigate("Home", {
-                    //   screen: "PostsScreen",
-                    //   // params: { login: login, email: email }
-                    // });
-                    // }
-                  }
+                  onPress={handleSubmit}
                 >
                   <Text style={defaultStyles.buttonText}> Зареєстуватися </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={defaultStyles.isExistAccount}
                   onPress={() => {
-                    console.log("You tapped the Вже є акаунт? Увійти button!");
+                    // console.log("You tapped the Вже є акаунт? Увійти button!");
                     navigation.navigate("LoginScreen");
                   }}
                 >
@@ -228,11 +193,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 14,
     right: -12,
-    // transform: [{ rotate: "-45deg" }],
   },
 
   userPhoto: {
-    // flex: 1,
     width: 120,
     height: 120,
     borderRadius: 16,

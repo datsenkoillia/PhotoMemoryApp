@@ -32,17 +32,14 @@ import { ref, uploadBytes, put, getDownloadURL } from "firebase/storage";
 import { writeDataToFirestore } from "../../firebase/postsOperations";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";
-// import db from "../../firebase/config";
 
 export default function CreatePost() {
   const navigation = useNavigation();
-  const user = useSelector(userSelector)
-  // console.log(user);
+  const user = useSelector(userSelector);
 
   const [name, setName] = useState("");
   const [place, setPlace] = useState("");
   const [photoUri, setPhotoUri] = useState(null);
-  // const [photoURL, setPhotoURL] = useState(null);
   const [photoId, setPhotoId] = useState(null);
   const [isPhotoTake, setIsPhotoTake] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
@@ -87,18 +84,11 @@ export default function CreatePost() {
     const storageRef = ref(storage, `postsImages/${uniquePostId}`);
     await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(storageRef);
-    // console.log("link", downloadURL);
     return downloadURL;
-    // setPhotoURL(await getDownloadURL(storageRef));
-    // console.log(downloadURL);
   };
 
   const createPost = async () => {
     const url = await uploadPhotoToServer();
-    // setPhotoURL(url);
-    // console.log("url", url);
-    // console.log(photoURL);
-
     let locationGet = await Location.getCurrentPositionAsync();
     console.log(locationGet);
 
@@ -121,18 +111,13 @@ export default function CreatePost() {
     };
     console.log(newPost);
     writeDataToFirestore(newPost);
-    // navigation.navigate("PostsScreen", newPost);
     navigation.navigate("PostsScreen");
 
     setName("");
     setPlace("");
     setPhotoUri(null);
-    // setPhotoURL(null);
     setIsPhotoTake(false);
   };
-
-// const uploadPostToServer = async() => {}
-
 
   const clearPost = () => {
     setName("");
@@ -142,7 +127,6 @@ export default function CreatePost() {
     }
     setPhotoUri(null);
     setIsPhotoTake(false);
-    // setPhotoURL(null);
   };
 
   if (hasPermission === null) {

@@ -79,11 +79,9 @@ export const defaultStyles = StyleSheet.create({
 
   createPublicationInput: {
     height: 50,
-    // paddingBottom: 15,
     borderBottomWidth: 1,
     borderColor: "#E8E8E8",
     marginBottom: 16,
-    // borderRadius: 8,
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
@@ -97,11 +95,6 @@ export const defaultStyles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 33,
   },
-
-  // image: {
-  //   flex: 1,
-  //   justifyContent: "flex-end",
-  // },
 
   button: {
     alignItems: "center",

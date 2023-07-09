@@ -3,8 +3,6 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  FlatList,
-  Text,
   TextInput,
   TouchableOpacity,
 } from "react-native";
@@ -30,25 +28,22 @@ import { fetchPosts, fetchUserPosts } from "../../redux/posts/postsOperations";
 
 const CommentsScreen = () => {
   const {
-    params: { photoURL, commentsss, postId, userName },
+    params: { photoURL, postId },
   } = useRoute();
   const [text, setText] = useState("");
   const [comments, setComments] = useState([]);
   const [inputDynamicStyles, setInputDynamicStyles] =
     useState(bluredInputStyles);
 
-  // console.log(postId);
-
   const dispatch = useDispatch();
 
   const user = useSelector(userSelector);
-  console.log(user);
 
   const createComment = async () => {
     if (!text) {
       return;
     }
-    // console.log(text);
+
     const newComment = {
       text,
       userName: user.displayName,
@@ -56,7 +51,7 @@ const CommentsScreen = () => {
       avatar: user.photoURL,
       createTime: Date.now(),
     };
-    // console.log(newComment);
+
     await writeCommentToFirestore(newComment, postId);
     setText("");
     await fetchComments();
@@ -66,7 +61,6 @@ const CommentsScreen = () => {
 
   const fetchComments = async () => {
     const gettedComments = await getCommentsFromFirestore(postId);
-    // console.log("getted:", gettedComments);
 
     if (gettedComments.length > 0) {
       const sortedComments = [...gettedComments].sort((a, b) => {
@@ -76,9 +70,7 @@ const CommentsScreen = () => {
       setComments(sortedComments);
     }
 
-    // console.log(gettedComments.length);
     const commentsCount = { commentsCount: gettedComments.length };
-
     await updateDataInFirestore(`posts`, postId, commentsCount);
   };
 
@@ -86,33 +78,17 @@ const CommentsScreen = () => {
     fetchComments();
   }, []);
 
-  // console.log(comments);
-  console.log(comments);
-
   return (
     <>
       <ScrollView style={styles.container}>
         <View style={styles.imageWrapper}>
           <Image source={photoURL} style={styles.image} />
         </View>
-        {/* <View>
-          <Text>Тут будуть коментарі</Text>
-        </View> */}
         {comments.length > 0 && (
           <View style={styles.commentsContainer}>
             {comments.map((comment) => {
-              const {
-                text,
-                userName,
-                userId,
-                createTime,
-                avatar,
-                place,
-                location,
-                photoURL,
-                comments,
-              } = comment.data;
-              // console.log(createTime);
+              const { text, userName, userId, createTime, avatar } =
+                comment.data;
               const { id } = comment;
               return (
                 <View key={id}>
@@ -122,8 +98,6 @@ const CommentsScreen = () => {
                     userId={userId}
                     createTime={createTime}
                     avatar={avatar}
-                    // date={comment.date}
-                    // avatar={comment.avatar}
                     id={id}
                   />
                 </View>
@@ -135,7 +109,6 @@ const CommentsScreen = () => {
       <View style={styles.commentInputWrapper}>
         <TextInput
           placeholder="Коментувати..."
-          // secureTextEntry={!isShowPassword}
           value={text}
           onChangeText={setText}
           style={[
@@ -150,7 +123,7 @@ const CommentsScreen = () => {
         <TouchableOpacity
           style={styles.sendButton}
           onPress={() => {
-            console.log(`You tapped the addcoment button!`);
+            // console.log(`You tapped the addcoment button!`);
             createComment();
           }}
         >

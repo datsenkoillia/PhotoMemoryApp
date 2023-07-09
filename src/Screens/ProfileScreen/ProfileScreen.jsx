@@ -6,11 +6,9 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 import PhotoBG from "../../images/PhotoBG.png";
 import LogoutIcon from "../../svg/log-out.svg";
-import userPhoto from "../../images/userPhoto.jpg";
 import { defaultStyles } from "../../defaultStyles/defaultStyles";
 
 import UserPhoto from "../../Components/UserPhoto/UserPhoto";
@@ -26,7 +24,6 @@ const ProfileScreen = () => {
   const posts = useSelector(userPostsSelector);
   const user = useSelector(userSelector);
 
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,14 +41,12 @@ const ProfileScreen = () => {
                   <TouchableOpacity
                     style={styles.logoutButton}
                     onPress={() => {
-                      console.log("You tapped the Logout button!");
+                      // console.log("You tapped the Logout button!");
                       dispatch(logOut());
-                      // navigation.navigate("LoginScreen");
                     }}
                   >
                     <LogoutIcon />
                   </TouchableOpacity>
-                  {/* <UserPhoto photo={userPhoto} /> */}
                   <UserPhoto />
                   <Text style={defaultStyles.header}>{user.displayName}</Text>
                   <View>
@@ -93,8 +88,6 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     minHeight: 600,
-    // zIndex: 2,
-    // elevation: 3,
   },
   logoutButton: {
     position: "absolute",

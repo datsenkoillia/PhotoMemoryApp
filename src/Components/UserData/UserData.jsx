@@ -9,8 +9,6 @@ const UserData = () => {
   const userData = useSelector(userSelector);
   const isAuth = useSelector(isLoggedInSelector);
 
-  // console.log(userData.photoURL);
-
   let avatar;
   if (userData.photoURL) {
     avatar = userData.photoURL;
@@ -28,8 +26,6 @@ const UserData = () => {
         {isAuth && (
           <View>
             <Text style={styles.nameText}>{userData.displayName}</Text>
-            {/* </View>
-        <View> */}
             <Text style={styles.emailText}>{userData.email}</Text>
           </View>
         )}

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {
-  // persistReducer,
+
   persistStore,
   FLUSH,
   REHYDRATE,
@@ -9,8 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// import rootReducer from "./rootReducer";
+
 import { persistedAuthReducer } from "./auth/authSlice";
 import { postsReducer } from "./posts/postsSlice";
 
@@ -37,4 +36,4 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-// export default { store, persistor };
+

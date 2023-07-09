@@ -16,11 +16,11 @@ import {
   focusedInputStyles,
   defaultStyles,
 } from "../../defaultStyles/defaultStyles";
-import { useNavigation } from "@react-navigation/native";
 
 import PhotoBG from "../../images/PhotoBG.png";
+
+import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-// import { logIn } from "../../redux/auth/authSlice";
 import { logIn } from "../../redux/auth/authOperations";
 
 const LoginScreen = () => {
@@ -42,7 +42,6 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    // console.log(`Login user: {login: email: ${email}; password: ${password}}`);
     const userCredentials = {
       email: email,
       password: password,
@@ -62,7 +61,6 @@ const LoginScreen = () => {
             <KeyboardAvoidingView
               behavior={Platform.OS == "android" ? "padding" : "height"}
               keyboardVerticalOffset={-230}
-              // style={{ flex: 1 }}
             >
               <View style={[defaultStyles.formwrap, styles.formwrap]}>
                 <Text style={defaultStyles.header}>Увійти</Text>
@@ -94,14 +92,7 @@ const LoginScreen = () => {
                   />
                   <TouchableOpacity
                     style={defaultStyles.showPassButton}
-                    onPress={() => {
-                      console.log(
-                        `You tapped the ${
-                          !isShowPassword ? "Показати" : "Cховати"
-                        } button!`
-                      );
-                      toggleShowPassword();
-                    }}
+                    onPress={toggleShowPassword}
                   >
                     <Text style={defaultStyles.showPassAreaText}>
                       {!isShowPassword ? "Показати" : "Cховати"}
