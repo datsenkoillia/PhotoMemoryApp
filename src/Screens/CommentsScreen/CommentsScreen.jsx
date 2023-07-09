@@ -42,7 +42,7 @@ const CommentsScreen = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(userSelector);
-  // console.log(user);
+  console.log(user);
 
   const createComment = async () => {
     if (!text) {
@@ -53,6 +53,7 @@ const CommentsScreen = () => {
       text,
       userName: user.displayName,
       userId: user.uid,
+      avatar: user.photoURL,
       createTime: Date.now(),
     };
     // console.log(newComment);
@@ -65,7 +66,16 @@ const CommentsScreen = () => {
 
   const fetchComments = async () => {
     const gettedComments = await getCommentsFromFirestore(postId);
-    setComments(gettedComments);
+    // console.log("getted:", gettedComments);
+
+    if (gettedComments.length > 0) {
+      const sortedComments = [...gettedComments].sort((a, b) => {
+        return b.data.createTime - a.data.createTime;
+      });
+      console.log("sorted:", sortedComments);
+      setComments(sortedComments);
+    }
+
     // console.log(gettedComments.length);
     const commentsCount = { commentsCount: gettedComments.length };
 
@@ -77,6 +87,7 @@ const CommentsScreen = () => {
   }, []);
 
   // console.log(comments);
+  console.log(comments);
 
   return (
     <>
@@ -95,6 +106,7 @@ const CommentsScreen = () => {
                 userName,
                 userId,
                 createTime,
+                avatar,
                 place,
                 location,
                 photoURL,
@@ -109,6 +121,7 @@ const CommentsScreen = () => {
                     userName={userName}
                     userId={userId}
                     createTime={createTime}
+                    avatar={avatar}
                     // date={comment.date}
                     // avatar={comment.avatar}
                     id={id}

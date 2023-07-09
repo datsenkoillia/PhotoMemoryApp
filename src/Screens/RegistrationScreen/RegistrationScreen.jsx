@@ -70,8 +70,6 @@ const RegistrationScreen = () => {
     const downloadURL = await getDownloadURL(storageRef);
     console.log("link", downloadURL);
     return downloadURL;
-    // setPhotoURL(await getDownloadURL(storageRef));
-    // console.log(downloadURL);
   };
 
   const handleSubmit = async () => {
@@ -92,7 +90,7 @@ const RegistrationScreen = () => {
     };
 
     dispatch(register(userCredentials));
-    dispatch(setAvatarUri(null));
+    // dispatch(setAvatarUri(null));
 
     // console.log(`{login: ${login}; email: ${email}; password: ${password}}`);
   };

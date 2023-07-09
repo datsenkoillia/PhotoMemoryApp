@@ -1,29 +1,60 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import { register, logIn, logOut, authStateChanged } from "./authOperations";
+import {
+  register,
+  logIn,
+  logOut,
+  userAvatarUpdate,
+  authStateChanged,
+} from "./authOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const handleFulfilledRegister = (state, { payload }) => {
   const { displayName, email, uid, photoURL } = payload;
   const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
+  state.userAvatarURL = photoURL;
   // console.log("here signin");
   state.isLoggedIn = true;
+  if (photoURL) {
+    state.isAvatar = true;
+  }
+};
+
+const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
+  console.log('payload', payload);
+  const { displayName, email, uid, photoURL } = payload;
+  const userData = { displayName, email, uid, photoURL };
+  state.userData = userData;
+  state.userAvatarURL = photoURL;
+  if (photoURL === 'null') {
+    console.log('photoURL === null', photoURL === 'null');
+    state.isAvatar = false;
+  } else {
+    state.isAvatar = true;
+  }
 };
 
 const handleFulfilledLogin = (state, { payload }) => {
-  const { displayName, email, uid } = payload;
-  const userData = { displayName, email, uid };
+  const { displayName, email, uid, photoURL } = payload;
+  const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
+  state.userAvatarURL = photoURL;
   // console.log("here login");
   state.isLoggedIn = true;
+  if (photoURL) {
+    state.isAvatar = true;
+  }
   // console.log("стейт после логина", state);
 };
 
 const handleFulfilledLogout = (state) => {
   state.userData = null;
-  state.userAvatar = undefined;
+  state.userAvatar = null;
+  state.userAvatarUri = null;
   state.isLoggedIn = false;
+  state.isAvatar = false;
+  // dispatch(setAvatarUri(null));
   // console.log("handleFulfilledLogout");
 };
 
@@ -43,7 +74,9 @@ const handleRefreshUserRejected = (state) => {
 const initialState = {
   userData: null,
   userAvatarUri: null,
+  userAvatarURL: null,
   isLoggedIn: false,
+  isAvatar: false,
 };
 
 const authSlice = createSlice({
@@ -53,6 +86,9 @@ const authSlice = createSlice({
   reducers: {
     setAvatarUri: (state, { payload }) => {
       state.userAvatarUri = payload;
+    },
+    setIsAvatar: (state, { payload }) => {
+      state.isAvatar = payload;
     },
     // logIn: (state, { payload }) => {
     //   state.user = payload;
@@ -66,6 +102,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, handleFulfilledRegister)
+      .addCase(userAvatarUpdate.fulfilled, handleFulfilledUserAvatarUpdate)
       .addCase(logIn.fulfilled, handleFulfilledLogin)
       .addCase(logOut.fulfilled, handleFulfilledLogout);
     // .addCase(authStateChanged.fulfilled, handleFulfilledStateChange);
@@ -93,7 +130,10 @@ export const persistedAuthReducer = persistReducer(
 );
 
 export const { setAvatarUri } = authSlice.actions;
+export const { setIsAvatar } = authSlice.actions;
 // export const { logOut } = authSlice.actions;
 export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
+export const isAvatarSelector = (state) => state.auth.isAvatar;
 export const userSelector = (state) => state.auth.userData;
 export const userAvatarUriSelector = (state) => state.auth.userAvatarUri;
+export const userAvatarURLSelector = (state) => state.auth.userAvatarURL;

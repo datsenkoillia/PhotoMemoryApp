@@ -9,10 +9,12 @@ import { getDataFromFirestore } from "../../firebase/postsOperations";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSelector } from "../../redux/posts/postsSlice";
 import { fetchPosts } from "../../redux/posts/postsOperations";
+import { isLoggedInSelector } from "../../redux/auth/authSlice";
 
 const PostsScreen = () => {
   // const [posts, setPosts] = useState([]);
   const posts = useSelector(postsSelector);
+  const isAuth = useSelector(isLoggedInSelector);
   const dispatch = useDispatch();
 
   // const fetchPosts = async () => {
@@ -20,6 +22,12 @@ const PostsScreen = () => {
 
   //   setPosts(gettedPosts);
   // };
+
+  // const sortedPost = [...posts].sort((a, b) => {
+  //   return b.data.createTime - a.data.createTime;
+  // });
+
+console.log(posts);
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -29,7 +37,7 @@ const PostsScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <UserData />
+      {isAuth && <UserData />}
       {posts && (
         <View style={styles.postsContainer}>
           {posts.map((post) => {

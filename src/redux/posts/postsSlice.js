@@ -45,7 +45,7 @@ const handleFulfilledFetchPosts = (state, { payload }) => {
 };
 
 const handleFulfilledFetchUserPosts = (state, { payload }) => {
-  console.log(payload);
+  // console.log(payload);
   state.userPosts = payload;
 };
 

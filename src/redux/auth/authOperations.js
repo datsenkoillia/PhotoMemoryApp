@@ -11,7 +11,9 @@ export const register = createAsyncThunk(
   "auth/register",
   async ({ login, email, password, avatar }, thunkAPI) => {
     try {
+      // console.log('register');
       await createUserWithEmailAndPassword(auth, email, password);
+      // console.log("register2");
       await userUpdate({ displayName: login, photoURL: avatar });
       const user = auth.currentUser;
       console.log(user);
@@ -22,11 +24,29 @@ export const register = createAsyncThunk(
   }
 );
 
-const userUpdate = async (update) => {
+export const userAvatarUpdate = createAsyncThunk(
+  "auth/avatarUpdate",
+  async (avatarUrl, thunkAPI) => {
+    console.log("avatarUrl:", avatarUrl);
+    try {
+      await userUpdate({ photoURL: `${avatarUrl}` });
+      // await userUpdate({ photoURL: avatarUrl });
+      const user = auth.currentUser;
+      console.log("userAvatarUpdate", user);
+      return user;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const userUpdate = async (update) => {
   const user = auth.currentUser;
+  // console.log(user);
   if (user) {
     try {
       await updateProfile(user, update);
+      console.log("update", update);
     } catch (error) {
       throw error;
     }

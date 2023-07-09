@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
-import userPhoto from "../../images/userPhoto.jpg";
+import noPhoto from "../../images/no-photo.png";
 import { useSelector } from "react-redux";
 import { isLoggedInSelector, userSelector } from "../../redux/auth/authSlice";
 
@@ -9,13 +9,13 @@ const UserData = () => {
   const userData = useSelector(userSelector);
   const isAuth = useSelector(isLoggedInSelector);
 
-  console.log(userData.photoURL);
+  // console.log(userData.photoURL);
 
   let avatar;
   if (userData.photoURL) {
     avatar = userData.photoURL;
   } else {
-    avatar = userPhoto;
+    avatar = noPhoto;
   }
 
   return (

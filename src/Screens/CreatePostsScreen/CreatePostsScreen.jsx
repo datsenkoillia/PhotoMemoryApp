@@ -117,6 +117,7 @@ export default function CreatePost() {
       photoURL: url,
       location: coords,
       commentsCount: 0,
+      createTime: Date.now(),
     };
     console.log(newPost);
     writeDataToFirestore(newPost);
