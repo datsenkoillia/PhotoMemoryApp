@@ -10,7 +10,7 @@ import { db } from "./config";
 export const writeDataToFirestore = async (post) => {
   try {
     const docRef = await addDoc(collection(db, "posts"), post);
-    console.log("Document written with ID: ", docRef.id);
+    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
     throw e;
@@ -22,7 +22,7 @@ export const writeCommentToFirestore = async (comment, postId) => {
 
     const postRef = doc(collection(db, `posts`), postId);
     const docRef = await addDoc(collection(postRef, "comments"), comment);
-    console.log("Document written with ID: ", docRef.id);
+    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
     throw e;
@@ -89,7 +89,7 @@ export const updateDataInFirestore = async (
     const ref = doc(db, collectionName, docId);
 
     await updateDoc(ref, updateDataObject);
-    console.log("document updated");
+    // console.log("document updated");
   } catch (error) {
     console.log(error);
   }

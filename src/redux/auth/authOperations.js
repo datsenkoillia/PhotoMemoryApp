@@ -24,7 +24,6 @@ export const register = createAsyncThunk(
 export const userAvatarUpdate = createAsyncThunk(
   "auth/avatarUpdate",
   async (avatarUrl, thunkAPI) => {
-    console.log("avatarUrl:", avatarUrl);
     try {
       await userUpdate({ photoURL: `${avatarUrl}` });
       const user = auth.currentUser;
@@ -40,7 +39,6 @@ export const userUpdate = async (update) => {
   if (user) {
     try {
       await updateProfile(user, update);
-      console.log("update", update);
     } catch (error) {
       throw error;
     }

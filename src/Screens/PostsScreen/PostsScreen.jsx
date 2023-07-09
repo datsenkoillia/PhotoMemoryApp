@@ -14,6 +14,11 @@ const PostsScreen = () => {
   const isAuth = useSelector(isLoggedInSelector);
   const dispatch = useDispatch();
 
+  const sortedPosts = [...posts].sort((a, b) => {
+    return b.data.createTime - a.data.createTime;
+  });
+
+
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
@@ -23,7 +28,7 @@ const PostsScreen = () => {
       {isAuth && <UserData />}
       {posts && (
         <View style={styles.postsContainer}>
-          {posts.map((post) => {
+          {sortedPosts.map((post) => {
             const { name, place, location, photoURL, commentsCount } =
               post.data;
             const { id } = post;

@@ -61,12 +61,12 @@ const RegistrationScreen = () => {
     const storageRef = ref(storage, `avatarsImages/${uniquePostId}`);
     await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(storageRef);
-    console.log("link", downloadURL);
+    // console.log("link", downloadURL);
     return downloadURL;
   };
 
   const handleSubmit = async () => {
-    console.log("You tapped the Зареєстуватися button!");
+    // console.log("You tapped the Зареєстуватися button!");
     let avatarUrl;
 
     if (avatarUri) {

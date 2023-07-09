@@ -90,7 +90,6 @@ export default function CreatePost() {
   const createPost = async () => {
     const url = await uploadPhotoToServer();
     let locationGet = await Location.getCurrentPositionAsync();
-    console.log(locationGet);
 
     const coords = {
       latitude: locationGet.coords.latitude,
@@ -109,7 +108,6 @@ export default function CreatePost() {
       commentsCount: 0,
       createTime: Date.now(),
     };
-    console.log(newPost);
     writeDataToFirestore(newPost);
     navigation.navigate("PostsScreen");
 
@@ -197,7 +195,6 @@ export default function CreatePost() {
               onPress={() => {
                 setIsPhotoTake(false);
                 setPhotoUri(null);
-                console.log(photoId);
                 MediaLibrary.deleteAssetsAsync(photoId);
               }}
             >

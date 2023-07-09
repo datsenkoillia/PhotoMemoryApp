@@ -61,7 +61,6 @@ const UserPhoto = () => {
   };
 
   const uploadAvatarToServer = async (uri) => {
-    console.log("here upload avatar to server", uri);
     const res = await fetch(uri);
     const file = await res.blob();
     const uniquePostId = Date.now().toString();
@@ -85,7 +84,6 @@ const UserPhoto = () => {
     if (isAuth) {
       if (isAvatar) {
         dispatch(userAvatarUpdate(null));
-        console.log("isAvatar(in isAuth) after:", isAvatar);
       } else {
         const uri = await pickImage();
         const avatarUrl = await uploadAvatarToServer(uri);
@@ -104,7 +102,6 @@ const UserPhoto = () => {
   }
 
   useEffect(() => {
-    console.log("useEffect:");
     if (isAvatar) {
       dispatch(setIsAvatar(true));
     } else {

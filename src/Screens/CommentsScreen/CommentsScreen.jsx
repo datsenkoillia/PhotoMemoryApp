@@ -66,8 +66,7 @@ const CommentsScreen = () => {
       const sortedComments = [...gettedComments].sort((a, b) => {
         return b.data.createTime - a.data.createTime;
       });
-      console.log("sorted:", sortedComments);
-      setComments(sortedComments);
+       setComments(sortedComments);
     }
 
     const commentsCount = { commentsCount: gettedComments.length };

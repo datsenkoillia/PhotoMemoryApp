@@ -109,9 +109,6 @@ const LoginScreen = () => {
                 <TouchableOpacity
                   style={defaultStyles.isExistAccount}
                   onPress={() => {
-                    console.log(
-                      "You tapped the Немає акаунту? Зареєструватися button!"
-                    );
                     navigation.navigate("RegistrationScreen");
                   }}
                 >

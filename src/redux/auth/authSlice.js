@@ -21,13 +21,16 @@ const handleFulfilledRegister = (state, { payload }) => {
 };
 
 const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
-  console.log("payload", payload);
+  // console.log("payload", payload);
+
+  if (!payload) {
+    logOut();
+  }
   const { displayName, email, uid, photoURL } = payload;
   const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
   state.userAvatarURL = photoURL;
   if (photoURL === "null") {
-    console.log("photoURL === null", photoURL === "null");
     state.isAvatar = false;
   } else {
     state.isAvatar = true;

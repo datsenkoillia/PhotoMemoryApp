@@ -26,6 +26,10 @@ const ProfileScreen = () => {
 
   const dispatch = useDispatch();
 
+  const sortedPosts = [...posts].sort((a, b) => {
+    return b.data.createTime - a.data.createTime;
+  });
+
   useEffect(() => {
     dispatch(fetchUserPosts());
   }, []);
@@ -50,11 +54,10 @@ const ProfileScreen = () => {
                   <UserPhoto />
                   <Text style={defaultStyles.header}>{user.displayName}</Text>
                   <View>
-                    {posts.map((post) => {
+                    {sortedPosts.map((post) => {
                       const { name, place, location, photoURL, commentsCount } =
                         post.data;
                       const { id } = post;
-                      // console.log(id);
                       return (
                         <View key={id}>
                           <PostElement
