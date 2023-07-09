@@ -23,6 +23,7 @@ import { logOut } from "../../redux/auth/authOperations";
 const ProfileScreen = () => {
   const posts = useSelector(userPostsSelector);
   const user = useSelector(userSelector);
+  // console.log(user.uid);
 
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const ProfileScreen = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchUserPosts());
+    dispatch(fetchUserPosts(user.uid));
   }, []);
 
   return (

@@ -64,7 +64,7 @@ const UserPhoto = () => {
     const res = await fetch(uri);
     const file = await res.blob();
     const uniquePostId = Date.now().toString();
-    console.log(uniquePostId);
+    // console.log(uniquePostId);
     const storageRef = ref(storage, `avatarsImages/${uniquePostId}`);
     await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(storageRef);

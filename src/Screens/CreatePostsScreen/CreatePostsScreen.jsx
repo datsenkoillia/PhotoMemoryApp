@@ -80,7 +80,6 @@ export default function CreatePost() {
     const res = await fetch(photoUri);
     const file = await res.blob();
     const uniquePostId = Date.now().toString();
-    console.log(uniquePostId);
     const storageRef = ref(storage, `postsImages/${uniquePostId}`);
     await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(storageRef);

@@ -1,11 +1,16 @@
+import { db } from "./config";
 import {
   collection,
   addDoc,
   getDocs,
   updateDoc,
   doc,
+  where,
+  query,
 } from "firebase/firestore";
-import { db } from "./config";
+
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/auth/authSlice";
 
 export const writeDataToFirestore = async (post) => {
   try {
@@ -19,7 +24,6 @@ export const writeDataToFirestore = async (post) => {
 
 export const writeCommentToFirestore = async (comment, postId) => {
   try {
-
     const postRef = doc(collection(db, `posts`), postId);
     const docRef = await addDoc(collection(postRef, "comments"), comment);
     // console.log("Document written with ID: ", docRef.id);
@@ -45,12 +49,35 @@ export const getDataFromFirestore = async () => {
   }
 };
 
+// export const getUserPostsFromFirestore = async () => {
+//   const user = useSelector(userSelector);
+//   console.log(user.uid);
+//   try {
+//     let dataArray = [];
+//     const snapshot = await getDocs(
+//       collection(db, "posts"),
+//       where("userId", "==", `${user.uid}`)
+//     );
+//     snapshot.forEach((doc) => {
+//       dataArray.push({ id: doc.id, data: doc.data() });
+//     });
 
-export const getUserPostsFromFirestore = async () => {
+//     return dataArray;
+//     // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
+
+export const getUserPostsFromFirestore = async (uid) => {
   try {
     let dataArray = [];
-    const snapshot = await getDocs(collection(db, "posts"));
+    const postsRef = collection(db, "posts");
+    const q = query(postsRef, where("userId", "==", uid));
+    const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
+      // console.log(doc.id, " => ", doc.data());
       dataArray.push({ id: doc.id, data: doc.data() });
     });
 
@@ -61,7 +88,6 @@ export const getUserPostsFromFirestore = async () => {
     throw error;
   }
 };
-
 
 export const getCommentsFromFirestore = async (postId) => {
   try {

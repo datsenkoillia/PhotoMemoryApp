@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   },
 
   commentTextWrapperIsAuthor: {
+    borderTopLeftRadius: 6,
     borderTopRightRadius: 0,
   },
 

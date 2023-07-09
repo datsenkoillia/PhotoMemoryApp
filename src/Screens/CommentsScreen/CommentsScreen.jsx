@@ -56,7 +56,7 @@ const CommentsScreen = () => {
     setText("");
     await fetchComments();
     dispatch(fetchPosts());
-    dispatch(fetchUserPosts());
+    dispatch(fetchUserPosts(user.uid));
   };
 
   const fetchComments = async () => {

@@ -17,9 +17,9 @@ export const fetchPosts = createAsyncThunk(
 
 export const fetchUserPosts = createAsyncThunk(
   "userPosts/fetch",
-  async (_, thunkAPI) => {
+  async (userId, thunkAPI) => {
     try {
-      return await getUserPostsFromFirestore();
+      return await getUserPostsFromFirestore(userId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
