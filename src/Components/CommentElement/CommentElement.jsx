@@ -4,24 +4,11 @@ import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";
 
-const CommentElement = ({
-  text,
-  date,
-  avatar,
-  id,
-  userId,
-  createTime,
-  userName,
-}) => {
-  // console.log(text);
-
+const CommentElement = ({ text, avatar, userId, createTime }) => {
   const { uid } = useSelector(userSelector);
-  // console.log(uid);
-  // console.log(userId);
 
   const isAuthor = uid === userId;
 
-  // const commentDate = new Date(createTime).toLocaleString();
   const commentDay = new Date(createTime).toLocaleDateString(undefined, {
     year: "numeric",
     month: "long",
@@ -30,7 +17,6 @@ const CommentElement = ({
   const commentTime = new Date(createTime).toTimeString().slice(0, 5);
 
   const commentDate = `${commentDay}` + ` | ` + `${commentTime}`;
-  // const commentDate = new Date(createTime).toDateString();
 
   return (
     <View
@@ -39,9 +25,6 @@ const CommentElement = ({
         isAuthor && styles.commentItemWrapperIsAuthor,
       ]}
     >
-      {/* <View>
-        <Text>{userName}</Text>
-      </View> */}
       <View>
         <Image source={avatar} style={styles.userPhoto} />
       </View>
