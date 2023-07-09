@@ -20,12 +20,17 @@ const CommentElement = ({
   // console.log(userId);
 
   const isAuthor = uid === userId;
-  // console.log(isAuthor);
 
-  // console.log(createTime);
+  // const commentDate = new Date(createTime).toLocaleString();
+  const commentDay = new Date(createTime).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const commentTime = new Date(createTime).toTimeString().slice(0, 5);
 
-  const commentDate = new Date(createTime).toLocaleString();
-  // console.log(commentDate);
+  const commentDate = `${commentDay}` + ` | ` + `${commentTime}`;
+  // const commentDate = new Date(createTime).toDateString();
 
   return (
     <View
@@ -40,10 +45,15 @@ const CommentElement = ({
       <View>
         <Image source={avatar} style={styles.userPhoto} />
       </View>
-      <View style={styles.commentTextWrapper}>
+      <View
+        style={[
+          styles.commentTextWrapper,
+          isAuthor && styles.commentTextWrapperIsAuthor,
+        ]}
+      >
         <Text style={styles.commentText}>{text}</Text>
         <Text
-          style={[styles.commentDate, isAuthor && styles.commentDateIsAutor]}
+          style={[styles.commentDate, isAuthor && styles.commentDateIsAuthor]}
         >
           {commentDate}
         </Text>
@@ -93,7 +103,7 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
   },
 
-  commentDateIsAutor: {
+  commentDateIsAuthor: {
     textAlign: "left",
   },
 
@@ -101,7 +111,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.03)",
     padding: 16,
     borderRadius: 6,
+    borderTopLeftRadius: 0,
     width: 299,
+  },
+
+  commentTextWrapperIsAuthor: {
+    borderTopRightRadius: 0,
   },
 
   commentItemWrapper: {
