@@ -16,12 +16,13 @@ import {
   userAvatarUriSelector,
   userSelector,
 } from "../../redux/auth/authSlice";
-import { userAvatarUpdate } from "../../redux/auth/authOperations";
+import { logOut, userAvatarUpdate } from "../../redux/auth/authOperations";
 
-import noPhoto from "../../images/no-photo.png";
+// import noPhoto from "../../images/no-photo.png";
 
 import { storage } from "../../firebase/config";
 import { ref, uploadBytes, put, getDownloadURL } from "firebase/storage";
+import { noAvatar } from "../../assets/constants/constants";
 
 const UserPhoto = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,12 @@ const UserPhoto = () => {
     });
 
     if (!result.canceled) {
+      if (!userData) {
+        console.log('no user data');
+        dispatch(logOut());
+        return null;
+      }
+
       let filename = result?.assets[0].uri.substring(
         result?.assets[0].uri.lastIndexOf("/") + 1,
         result?.assets[0].uri.length
@@ -97,7 +104,7 @@ const UserPhoto = () => {
     if (isAvatar) {
       avatar = userData.photoURL;
     } else {
-      avatar = noPhoto;
+      avatar = noAvatar;
     }
   }
 

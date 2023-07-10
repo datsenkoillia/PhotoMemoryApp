@@ -21,72 +21,8 @@ import { persistor, store } from "./src/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { isLoggedInSelector, userSelector } from "./src/redux/auth/authSlice";
 
-// const AuthStack = createStackNavigator();
-// const MainStack = createStackNavigator();
-
-// const useRoute = (isLoggedIn) => {
-//   if (!isLoggedIn) {
-//     return (
-//       <AuthStack.Navigator initialRouteName="LoginScreen">
-//         <AuthStack.Screen
-//           name="RegistrationScreen"
-//           component={RegistrationScreen}
-//           options={{
-//             headerShown: false,
-//           }}
-//         />
-//         <AuthStack.Screen
-//           name="LoginScreen"
-//           component={LoginScreen}
-//           options={{
-//             headerShown: false,
-//           }}
-//         />
-//       </AuthStack.Navigator>
-//     );
-//   }
-//   return (
-//     <MainStack.Navigator initialRouteName="LoginScreen">
-//       <MainStack.Screen
-//         name="Home"
-//         component={Home}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//       <MainStack.Screen
-//         name="CreatePostsScreen"
-//         component={CreatePostsScreen}
-//         options={{
-//           title: "Створити публікацію",
-//           ...headerScreensStyles,
-//         }}
-//       />
-//       <MainStack.Screen
-//         name="MapScreen"
-//         component={MapScreen}
-//         options={{
-//           title: "Сфотографовано тут:",
-//           ...headerScreensStyles,
-//         }}
-//       />
-//       <MainStack.Screen
-//         name="CommentsScreen"
-//         component={CommentsScreen}
-//         options={{
-//           title: "Коментарі",
-//           ...headerScreensStyles,
-//         }}
-//       />
-//     </MainStack.Navigator>
-//   );
-// };
-
 export default function App() {
   const [fontsLoaded] = useFonts({
-    // "Roboto-Regular": require("../AwesomeProject/src/assets/fonts/Roboto-Regular.ttf"),
-    // "Roboto-Medium": require("../AwesomeProject/src/assets/fonts/Roboto-Medium.ttf"),
-    // "Roboto-Bold": require("../AwesomeProject/src/assets/fonts/Roboto-Bold.ttf"),
     "Roboto-Regular": require("./src/assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./src/assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Bold": require("./src/assets/fonts/Roboto-Bold.ttf"),
@@ -109,54 +45,6 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <NavigationRouting />
-          {/* {routing} */}
-          {/* <MainStack.Navigator initialRouteName="LoginScreen">
-            <MainStack.Screen
-              name="RegistrationScreen"
-              component={RegistrationScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <MainStack.Screen
-              name="LoginScreen"
-              component={LoginScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <MainStack.Screen
-              name="Home"
-              component={Home}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <MainStack.Screen
-              name="CreatePostsScreen"
-              component={CreatePostsScreen}
-              options={{
-                title: "Створити публікацію",
-                ...headerScreensStyles,
-              }}
-            />
-            <MainStack.Screen
-              name="MapScreen"
-              component={MapScreen}
-              options={{
-                title: "Сфотографовано тут:",
-                ...headerScreensStyles,
-              }}
-            />
-            <MainStack.Screen
-              name="CommentsScreen"
-              component={CommentsScreen}
-              options={{
-                title: "Коментарі",
-                ...headerScreensStyles,
-              }}
-            />
-          </MainStack.Navigator> */}
           <StatusBar style="auto" />
         </NavigationContainer>
       </PersistGate>

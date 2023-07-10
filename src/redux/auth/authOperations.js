@@ -45,6 +45,33 @@ export const userUpdate = async (update) => {
   }
 };
 
+// export const authStateChanged = async (onChange = () => {}) => {
+//   onAuthStateChanged((user) => {
+//     onChange(user);
+//   });
+// };
+
+export const checkUserState = async () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // dispatch(authStateChanged(true));
+      console.log("uid in checkState", user.uid);
+      return true;
+      // ...
+    } else {
+      // dispatch(authStateChanged(false));
+      return false;
+      // ...
+    }
+  });
+};
+
+// export const checkUserState = async (onChange = () => {}) => {
+//   onAuthStateChanged((user) => {
+//     onChange(user);
+//   });
+// };
+
 export const logIn = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {

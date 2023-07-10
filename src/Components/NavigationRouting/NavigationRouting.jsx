@@ -12,14 +12,27 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { headerScreensStyles } from "../../defaultStyles/headerScreensStyles";
 import CreatePostsScreen from "../../Screens/CreatePostsScreen/CreatePostsScreen";
-import { isLoggedInSelector } from "../../redux/auth/authSlice";
-import { useSelector } from "react-redux";
+import {
+  authStateChanged,
+  isLoggedInSelector,
+} from "../../redux/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+// import { authStateChanged } from "../../redux/auth/authOperations";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { checkUserState } from "../../redux/auth/authOperations";
 
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
 
 export const NavigationRouting = () => {
   const isLoggedIn = useSelector(isLoggedInSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userCheck = checkUserState();
+    // console.log(userCheck);
+    dispatch(authStateChanged(userCheck));
+  }, []);
 
   if (!isLoggedIn) {
     return (

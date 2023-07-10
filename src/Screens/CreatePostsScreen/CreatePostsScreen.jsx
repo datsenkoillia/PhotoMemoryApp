@@ -101,7 +101,7 @@ export default function CreatePost() {
       id: photoId,
       name,
       place,
-      photoUri,
+      // photoUri,
       photoURL: url,
       location: coords,
       commentsCount: 0,

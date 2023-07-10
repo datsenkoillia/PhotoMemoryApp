@@ -18,13 +18,15 @@ import {
 } from "../../defaultStyles/defaultStyles";
 import CommentElement from "../../Components/CommentElement/CommentElement";
 import { useDispatch, useSelector } from "react-redux";
-import { userSelector } from "../../redux/auth/authSlice";
+import { authStateChanged, userSelector } from "../../redux/auth/authSlice";
 import {
   getCommentsFromFirestore,
   updateDataInFirestore,
   writeCommentToFirestore,
 } from "../../firebase/postsOperations";
 import { fetchPosts, fetchUserPosts } from "../../redux/posts/postsOperations";
+import { checkUserState } from "../../redux/auth/authOperations";
+import { noAvatar } from "../../assets/constants/constants";
 
 const CommentsScreen = () => {
   const {
@@ -44,11 +46,18 @@ const CommentsScreen = () => {
       return;
     }
 
+    let avatar;
+    if (user.photoURL) {
+      avatar = user.photoURL;
+    } else {
+      avatar = noAvatar;
+    }
+
     const newComment = {
       text,
       userName: user.displayName,
       userId: user.uid,
-      avatar: user.photoURL,
+      avatar: avatar,
       createTime: Date.now(),
     };
 
@@ -66,7 +75,7 @@ const CommentsScreen = () => {
       const sortedComments = [...gettedComments].sort((a, b) => {
         return b.data.createTime - a.data.createTime;
       });
-       setComments(sortedComments);
+      setComments(sortedComments);
     }
 
     const commentsCount = { commentsCount: gettedComments.length };
