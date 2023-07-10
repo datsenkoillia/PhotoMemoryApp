@@ -14,6 +14,17 @@ const handleFulfilledRegister = (state, { payload }) => {
   }
 };
 
+const handleFulfilledLogin = (state, { payload }) => {
+  const { displayName, email, uid, photoURL } = payload;
+  const userData = { displayName, email, uid, photoURL };
+  state.userData = userData;
+  state.userAvatarURL = photoURL;
+  state.isLoggedIn = true;
+  if (photoURL) {
+    state.isAvatar = true;
+  }
+};
+
 const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
   // console.log("payload", payload);
 
@@ -28,17 +39,6 @@ const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
   if (photoURL === "null") {
     state.isAvatar = false;
   } else {
-    state.isAvatar = true;
-  }
-};
-
-const handleFulfilledLogin = (state, { payload }) => {
-  const { displayName, email, uid, photoURL } = payload;
-  const userData = { displayName, email, uid, photoURL };
-  state.userData = userData;
-  state.userAvatarURL = photoURL;
-  state.isLoggedIn = true;
-  if (photoURL) {
     state.isAvatar = true;
   }
 };

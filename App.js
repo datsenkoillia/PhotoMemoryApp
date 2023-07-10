@@ -32,14 +32,6 @@ export default function App() {
     return null;
   }
 
-  // const userData = useSelector(userSelector);
-
-  // const isAuth = useSelector(isLoggedInSelector);
-  // console.log(isAuth);
-
-  // const routing = navigationRouting();
-  // console.log(store);
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

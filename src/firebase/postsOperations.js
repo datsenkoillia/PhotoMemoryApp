@@ -15,7 +15,6 @@ import { userSelector } from "../redux/auth/authSlice";
 export const writeDataToFirestore = async (post) => {
   try {
     const docRef = await addDoc(collection(db, "posts"), post);
-    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
     throw e;
@@ -26,7 +25,6 @@ export const writeCommentToFirestore = async (comment, postId) => {
   try {
     const postRef = doc(collection(db, `posts`), postId);
     const docRef = await addDoc(collection(postRef, "comments"), comment);
-    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
     throw e;
@@ -42,33 +40,11 @@ export const getDataFromFirestore = async () => {
     });
 
     return dataArray;
-    // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
   } catch (error) {
     console.log(error);
     throw error;
   }
 };
-
-// export const getUserPostsFromFirestore = async () => {
-//   const user = useSelector(userSelector);
-//   console.log(user.uid);
-//   try {
-//     let dataArray = [];
-//     const snapshot = await getDocs(
-//       collection(db, "posts"),
-//       where("userId", "==", `${user.uid}`)
-//     );
-//     snapshot.forEach((doc) => {
-//       dataArray.push({ id: doc.id, data: doc.data() });
-//     });
-
-//     return dataArray;
-//     // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// };
 
 export const getUserPostsFromFirestore = async (uid) => {
   try {
@@ -77,12 +53,10 @@ export const getUserPostsFromFirestore = async (uid) => {
     const q = query(postsRef, where("userId", "==", uid));
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
-      // console.log(doc.id, " => ", doc.data());
       dataArray.push({ id: doc.id, data: doc.data() });
     });
 
     return dataArray;
-    // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
   } catch (error) {
     console.log(error);
     throw error;
@@ -99,7 +73,6 @@ export const getCommentsFromFirestore = async (postId) => {
     });
 
     return dataArray;
-    // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
   } catch (error) {
     console.log(error);
     throw error;
@@ -115,7 +88,6 @@ export const updateDataInFirestore = async (
     const ref = doc(db, collectionName, docId);
 
     await updateDoc(ref, updateDataObject);
-    // console.log("document updated");
   } catch (error) {
     console.log(error);
   }

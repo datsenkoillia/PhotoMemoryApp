@@ -5,6 +5,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
@@ -60,6 +61,8 @@ const CommentsScreen = () => {
       avatar: avatar,
       createTime: Date.now(),
     };
+
+    Keyboard.dismiss();
 
     await writeCommentToFirestore(newComment, postId);
     setText("");
