@@ -7,8 +7,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postsSelector } from "../../redux/posts/postsSlice";
 import { fetchPosts } from "../../redux/posts/postsOperations";
-import { authStateChanged, isLoggedInSelector } from "../../redux/auth/authSlice";
-import { checkUserState } from "../../redux/auth/authOperations";
+import { isLoggedInSelector } from "../../redux/auth/authSlice";
 
 const PostsScreen = () => {
   const posts = useSelector(postsSelector);
@@ -18,13 +17,6 @@ const PostsScreen = () => {
   const sortedPosts = [...posts].sort((a, b) => {
     return b.data.createTime - a.data.createTime;
   });
-
-
-  useEffect(() => {
-    const userCheck = checkUserState();
-    // console.log(userCheck);
-    dispatch(authStateChanged(userCheck));
-  }, []);
 
   useEffect(() => {
     dispatch(fetchPosts());

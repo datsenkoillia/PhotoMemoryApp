@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    minHeight: 600,
+    minHeight: 800,
   },
   logoutButton: {
     position: "absolute",

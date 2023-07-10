@@ -44,8 +44,8 @@ const UserPhoto = () => {
     });
 
     if (!result.canceled) {
-      if (!userData) {
-        console.log('no user data');
+      if (isAuth && !userData) {
+        // console.log("no user data");
         dispatch(logOut());
         return null;
       }
@@ -61,6 +61,7 @@ const UserPhoto = () => {
         name: filename,
       };
       dispatch(setAvatarUri(result.assets[0].uri));
+      // console.log(result.assets[0].uri);
       return result.assets[0].uri;
     } else {
       setAddPhotoButtonDynamicStyles(noPhotoButtonStyles);

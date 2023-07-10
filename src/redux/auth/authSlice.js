@@ -18,12 +18,13 @@ const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
   // console.log("payload", payload);
 
   if (!payload) {
-    logOut();
+    state.isLoggedIn = false;
+    state.userAvatarUri = null;
+    return;
   }
   const { displayName, email, uid, photoURL } = payload;
   const userData = { displayName, email, uid, photoURL };
   state.userData = userData;
-  // state.userAvatarURL = photoURL;
   if (photoURL === "null") {
     state.isAvatar = false;
   } else {
@@ -44,7 +45,7 @@ const handleFulfilledLogin = (state, { payload }) => {
 
 const handleFulfilledLogout = (state) => {
   state.userData = null;
-  state.userAvatar = null;
+  state.userAvatarURL = null;
   state.userAvatarUri = null;
   state.isLoggedIn = false;
   state.isAvatar = false;
@@ -69,15 +70,6 @@ const authSlice = createSlice({
     setIsAvatar: (state, { payload }) => {
       state.isAvatar = payload;
     },
-    authStateChanged: (state, { payload }) => {
-      state.isLoggedIn = payload;
-      if (!payload) {
-        // state.userData = null;
-        state.userAvatarUri = null;
-        state.userAvatarURL = null;
-        state.isAvatar = false;
-      }
-    },
   },
 
   extraReducers: (builder) => {
@@ -101,9 +93,7 @@ export const persistedAuthReducer = persistReducer(
 
 export const { setAvatarUri, setIsAvatar, authStateChanged } =
   authSlice.actions;
-// export const { setIsAvatar } = authSlice.actions;
 export const isLoggedInSelector = (state) => state.auth.isLoggedIn;
 export const isAvatarSelector = (state) => state.auth.isAvatar;
 export const userSelector = (state) => state.auth.userData;
 export const userAvatarUriSelector = (state) => state.auth.userAvatarUri;
-// export const userAvatarURLSelector = (state) => state.auth.userAvatarURL;

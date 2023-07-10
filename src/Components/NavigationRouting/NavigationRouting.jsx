@@ -17,22 +17,27 @@ import {
   isLoggedInSelector,
 } from "../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-// import { authStateChanged } from "../../redux/auth/authOperations";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { checkUserState } from "../../redux/auth/authOperations";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/config";
 
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
 
 export const NavigationRouting = () => {
   const isLoggedIn = useSelector(isLoggedInSelector);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const userCheck = checkUserState();
-    // console.log(userCheck);
-    dispatch(authStateChanged(userCheck));
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log("lnlogin", user.uid);
+  //       dispatch(authStateChanged(user));
+  //     } else {
+  //       console.log("lnlogin", "noUser");
+  //       dispatch(authStateChanged(false));
+  //     }
+  //   });
+  // }, []);
 
   if (!isLoggedIn) {
     return (

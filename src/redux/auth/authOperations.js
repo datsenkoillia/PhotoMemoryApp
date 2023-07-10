@@ -6,6 +6,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
+import { useDispatch } from "react-redux";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -45,33 +46,6 @@ export const userUpdate = async (update) => {
   }
 };
 
-// export const authStateChanged = async (onChange = () => {}) => {
-//   onAuthStateChanged((user) => {
-//     onChange(user);
-//   });
-// };
-
-export const checkUserState = async () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // dispatch(authStateChanged(true));
-      console.log("uid in checkState", user.uid);
-      return true;
-      // ...
-    } else {
-      // dispatch(authStateChanged(false));
-      return false;
-      // ...
-    }
-  });
-};
-
-// export const checkUserState = async (onChange = () => {}) => {
-//   onAuthStateChanged((user) => {
-//     onChange(user);
-//   });
-// };
-
 export const logIn = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
@@ -86,6 +60,7 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
+    // console.log("logout");
     await auth.signOut();
   } catch (error) {
     console.log(error);
