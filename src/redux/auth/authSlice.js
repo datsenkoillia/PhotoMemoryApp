@@ -26,7 +26,6 @@ const handleFulfilledLogin = (state, { payload }) => {
 };
 
 const handleFulfilledUserAvatarUpdate = (state, { payload }) => {
-  // console.log("payload", payload);
 
   if (!payload) {
     state.isLoggedIn = false;

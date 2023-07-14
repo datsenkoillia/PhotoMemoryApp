@@ -6,7 +6,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import { useDispatch } from "react-redux";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -60,7 +59,6 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    // console.log("logout");
     await auth.signOut();
   } catch (error) {
     console.log(error);

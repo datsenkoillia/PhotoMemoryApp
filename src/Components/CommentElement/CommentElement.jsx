@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/auth/authSlice";

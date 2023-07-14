@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 import { Image } from "expo-image";
 

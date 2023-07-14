@@ -18,8 +18,6 @@ import {
 } from "../../redux/auth/authSlice";
 import { logOut, userAvatarUpdate } from "../../redux/auth/authOperations";
 
-// import noPhoto from "../../images/no-photo.png";
-
 import { storage } from "../../firebase/config";
 import { ref, uploadBytes, put, getDownloadURL } from "firebase/storage";
 import { noAvatar } from "../../assets/constants/constants";

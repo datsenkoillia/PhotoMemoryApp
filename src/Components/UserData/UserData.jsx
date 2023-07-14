@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Image } from "expo-image";
-// import noPhoto from "../../images/no-photo.png";
 import { useSelector } from "react-redux";
 import { isLoggedInSelector, userSelector } from "../../redux/auth/authSlice";
 import { noAvatar } from "../../assets/constants/constants";

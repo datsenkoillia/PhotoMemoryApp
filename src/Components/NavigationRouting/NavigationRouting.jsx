@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { StyleSheet } from "react-native";
 
 import RegistrationScreen from "../../Screens/RegistrationScreen/RegistrationScreen";
@@ -13,31 +12,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { headerScreensStyles } from "../../defaultStyles/headerScreensStyles";
 import CreatePostsScreen from "../../Screens/CreatePostsScreen/CreatePostsScreen";
 import {
-  authStateChanged,
   isLoggedInSelector,
 } from "../../redux/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/config";
+import {  useSelector } from "react-redux";
+
 
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
 
 export const NavigationRouting = () => {
   const isLoggedIn = useSelector(isLoggedInSelector);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       console.log("lnlogin", user.uid);
-  //       dispatch(authStateChanged(user));
-  //     } else {
-  //       console.log("lnlogin", "noUser");
-  //       dispatch(authStateChanged(false));
-  //     }
-  //   });
-  // }, []);
 
   if (!isLoggedIn) {
     return (

@@ -9,9 +9,6 @@ import {
   query,
 } from "firebase/firestore";
 
-import { useSelector } from "react-redux";
-import { userSelector } from "../redux/auth/authSlice";
-
 export const writeDataToFirestore = async (post) => {
   try {
     const docRef = await addDoc(collection(db, "posts"), post);
