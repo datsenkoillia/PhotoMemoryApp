@@ -37,7 +37,7 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <NavigationRouting />
-          <StatusBar style="auto" />
+          <StatusBar style='inverted' />
         </NavigationContainer>
       </PersistGate>
     </Provider>

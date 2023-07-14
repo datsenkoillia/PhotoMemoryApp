@@ -1,20 +1,21 @@
 import { useRoute } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 const MapScreen = () => {
-  const { params: { location, name, place } } = useRoute();
+  const {
+    params: { location, name, place },
+  } = useRoute();
 
   const { latitude, longitude } = location;
-
 
   return (
     <View style={styles.container}>
       <MapView
+        provider={PROVIDER_GOOGLE}
         style={styles.mapStyle}
         region={{
-
           latitude,
           longitude,
           latitudeDelta: 0.0922,

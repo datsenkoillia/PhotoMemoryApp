@@ -1,30 +1,46 @@
 {
   "expo": {
-    // "jsEngine": "hermes",
     "name": "PhotoMomentsApp",
     "slug": "PhotoMomentsApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    // "icon": "./assets/icon.png",
     "icon": "./assets/moments_and_memories.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/moments_and_memories.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos.",
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/moments_and_memories.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION"
+      ],
+      "package": "com.illiadatsenko.PhotoMomentsApp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAQCckpFwQ-kWy9DdE7GID_YrBWTemvUVM"
+        }
+      }
     },
-
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -49,9 +65,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "547d3105-75ba-40db-be25-163fe92bbe06"
+      }
+    }
   }
-  // "android": { "softwareKeyboardLayoutMode": "pan" }
 }
-
-// { "android": { "softwareKeyboardLayoutMode": "pan" } }
